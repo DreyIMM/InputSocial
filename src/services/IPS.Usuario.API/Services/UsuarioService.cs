@@ -15,11 +15,8 @@ namespace IPS.Usuario.API.Services
 
         public async Task Adicionar(UsuarioLogado usuario)
         {
-
              if (!usuario.EhValido()) return;
-
              await _userRepository.Adicionar(usuario);
-
         }
     }
 

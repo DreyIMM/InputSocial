@@ -8,23 +8,21 @@ namespace IPS.Usuario.API.Repository
     public class UsuarioRepository : IUsuarioRepository
     {
         private readonly UsuarioContext _context;
-        protected readonly DbSet<UsuarioLogado> DbSet;
 
         public UsuarioRepository(UsuarioContext context)
         {
             _context = context;
-            DbSet = context.Set<UsuarioLogado>();
         }
 
         public async Task Adicionar(UsuarioLogado usuario)
         {
-            DbSet.Add(usuario);
+            _context.AddAsync(usuario);
             await SaveChanges();
         }
 
         public async Task<int> SaveChanges()
         {
-            return await _context.SaveChangesAsync();
+            return  _context.SaveChanges();
         }
 
         public void Dispose()
