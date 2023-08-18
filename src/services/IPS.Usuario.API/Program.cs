@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApiConfiguration(builder.Configuration);
 builder.Services.AddSwaggerConfiguration();
-builder.Services.RegisterServices();
+builder.Services.RegisterServices(builder.Configuration);
 
 // Add services to the container.
 var app = builder.Build();

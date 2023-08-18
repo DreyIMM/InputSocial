@@ -10,8 +10,9 @@ namespace IPS.Usuario.API.Models
         public DateTime DataAniversario { get; set; }
 
 
-        public UsuarioLogado(string userName, int celular, DateTime dtAniversario)
+        public UsuarioLogado(Guid id, string userName, int celular, DateTime dtAniversario)
         {
+            Id = id;
             UserName = userName;
             Celular = celular;
             DataAniversario = dtAniversario;

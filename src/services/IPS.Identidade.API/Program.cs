@@ -5,6 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddIdentityConfiguration(builder.Configuration);
 builder.Services.AddApiConfiguration();
 builder.Services.AddSwaggerConfig();
+builder.Services.AddMessageBusConfiguration(builder.Configuration);
 
 // Add services to the container.
 var app = builder.Build();

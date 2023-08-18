@@ -1,7 +1,6 @@
 ﻿using IPS.Usuario.API.Models;
 using IPS.Usuario.API.Services;
 using IPS.WebApi.Core.Controllers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IPS.Usuario.API.Controllers
@@ -17,7 +16,7 @@ namespace IPS.Usuario.API.Controllers
         [HttpPost("novo-usuario")]
         public ActionResult Create([FromBody] UsuarioLogado user)
         {   
-           _userService.Adicionar(new UsuarioLogado("drey", 2222222, DateTime.Now));
+           //_userService.Adicionar(new UsuarioLogado("drey", 2222222, DateTime.Now));
             return Ok();
         }
     }

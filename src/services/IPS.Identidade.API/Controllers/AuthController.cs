@@ -1,4 +1,7 @@
-﻿using IPS.Identidade.API.Models;
+﻿using EasyNetQ;
+using IPS.Core.Messages;
+using IPS.Identidade.API.Models;
+using IPS.MessageBus;
 using IPS.WebApi.Core.Controllers;
 using IPS.WebApi.Core.Identidade;
 using Microsoft.AspNetCore.Identity;
@@ -18,12 +21,14 @@ namespace IPS.Identidade.API.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly AppSettings _appSettings;
+        private readonly IMessageBus _bus;
 
-        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings)
+        public AuthController(SignInManager<IdentityUser> signInManager, UserManager<IdentityUser> userManager, IOptions<AppSettings> appSettings, IMessageBus bus)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _appSettings = appSettings.Value;
+            _bus = bus;
         }
 
         [HttpPost("nova-conta")]
@@ -45,8 +50,15 @@ namespace IPS.Identidade.API.Controllers
             {
                 //envia um request para API (Mensageria) Cliente
 
+                var resultadoUsuario = await RegistrarUsuario(usuarioRegistro);
+
+                if (!resultadoUsuario.ValidationResult)
+                {
+                    await _userManager.DeleteAsync(user);
+                    return CustomResponse(resultadoUsuario.ValidationResult);
+                }
+
                 //Se o retorno do request for negativo, exclui do entity e retorna mensagem (com o erro)
-                
                 return CustomResponse(await GerarJwt(usuarioRegistro.Email));
 
             }
@@ -83,8 +95,24 @@ namespace IPS.Identidade.API.Controllers
             return CustomResponse();
         }
 
+        //Integração (Envio da mensagem)
+        private async Task<ResponseMessage> RegistrarUsuario(UsuarioRegistro usuarioRegistro)
+        {
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
 
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(Guid.Parse(usuario.Id), usuarioRegistro.UserName, usuarioRegistro.Celular,  usuarioRegistro.Nascimento);
 
+            try
+            {
+                return await _bus.RequestAsync<UsuarioRegistradoIntegrationEvent, ResponseMessage>(usuarioRegistrado);
+            }
+            catch (Exception ex)
+            {
+                await _userManager.DeleteAsync(usuario);
+                throw ex;
+            }
+
+        }
 
 
         private async Task<UsuarioRespostaLogin> GerarJwt(string email)
