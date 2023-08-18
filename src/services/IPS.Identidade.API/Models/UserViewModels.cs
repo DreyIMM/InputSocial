@@ -11,7 +11,8 @@ namespace IPS.Identidade.API.Models
         public int Celular { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public DateTime Nascimento { get; set; }
+        [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$", ErrorMessage = "Formato de data inválido. Use o formato dd/mm/yyyy.")]
+        public string Nascimento { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]

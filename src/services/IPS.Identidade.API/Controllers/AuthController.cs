@@ -1,5 +1,6 @@
 ﻿using EasyNetQ;
 using IPS.Core.Messages;
+using IPS.Identidade.API.Extensions;
 using IPS.Identidade.API.Models;
 using IPS.MessageBus;
 using IPS.WebApi.Core.Controllers;
@@ -100,7 +101,7 @@ namespace IPS.Identidade.API.Controllers
         {
             var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
 
-            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(Guid.Parse(usuario.Id), usuarioRegistro.UserName, usuarioRegistro.Celular,  usuarioRegistro.Nascimento);
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(Guid.Parse(usuario.Id), usuarioRegistro.UserName, usuarioRegistro.Celular,  usuarioRegistro.Nascimento.ToDateTime());
 
             try
             {
