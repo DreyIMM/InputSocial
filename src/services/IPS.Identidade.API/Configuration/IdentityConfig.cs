@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using IPS.WebApi.Core.Identidade;
+using IPS.Identidade.API.Extensions;
 
 namespace IPS.Identidade.API.Configuration
 {
@@ -17,6 +18,7 @@ namespace IPS.Identidade.API.Configuration
             //Configuração para o Suporte ao Identity
             services.AddDefaultIdentity<IdentityUser>()
                .AddRoles<IdentityRole>()
+               .AddErrorDescriber<IdentityMensagensPortugues>()
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 

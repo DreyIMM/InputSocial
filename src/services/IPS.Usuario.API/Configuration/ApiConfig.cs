@@ -8,7 +8,7 @@ namespace IPS.Usuario.API.Configuration
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<UsuarioContext>(options =>
-              options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+              options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
 
             services.AddControllers();
