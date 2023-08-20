@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using IPS.WebApi.Core.Identidade;
+using IPS.Identidade.API.Extensions;
 
 namespace IPS.Identidade.API.Configuration
 {
@@ -12,11 +13,12 @@ namespace IPS.Identidade.API.Configuration
         {
             //Configurando o DBContext para o Identity
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             //Configuração para o Suporte ao Identity
             services.AddDefaultIdentity<IdentityUser>()
                .AddRoles<IdentityRole>()
+               .AddErrorDescriber<IdentityMensagensPortugues>()
                .AddEntityFrameworkStores<ApplicationDbContext>()
                .AddDefaultTokenProviders();
 
