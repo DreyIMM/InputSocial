@@ -4,6 +4,7 @@ using IPS.Feed.API.Configuration;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApiConfiguration(builder.Configuration);
+builder.Services.AddSwaggerConfiguration();
 // (END) Add services to the container.
 
 
@@ -11,5 +12,6 @@ builder.Services.AddApiConfiguration(builder.Configuration);
 var app = builder.Build();
 
 app.UseApiConfiguration(builder.Environment);
+app.UseSwaggerConfiguration();
 app.Run();
 // (END) Configure the HTTP request pipeline.
