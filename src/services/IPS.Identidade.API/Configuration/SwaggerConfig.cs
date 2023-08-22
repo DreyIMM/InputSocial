@@ -13,7 +13,7 @@ namespace IPS.Identidade.API.Configuration
                 {
                     Title = "Input Social Autenticador ",
                     Description = "Api de autenticação do aplicativo Input Social",
-                    Contact = new OpenApiContact() { Name = "andrey", Email = "andrey.barbosa@devq.com.br" },
+                    Contact = new OpenApiContact() { Name = "IPS", Email = "ips@devq.com.br" },
                     License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
                 });
             });
