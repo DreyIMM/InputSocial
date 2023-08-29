@@ -3,12 +3,14 @@ using IPS.Feed.API.Extensions;
 using IPS.Feed.API.Interfaces;
 using IPS.Feed.API.Services;
 using IPS.WebApi.Core.Controllers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IPS.Feed.API.Controllers
 {
 
     [Route("api/feed")]
+    [Authorize]
     public class FeedController : MainController
     {
         private readonly IPostagemRepository _postagemRepository;
@@ -47,7 +49,6 @@ namespace IPS.Feed.API.Controllers
         public async Task<ActionResult<PostagemAddDTO>> PostagemAdd([FromBody] PostagemAddDTO post)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-
 
             await _postagemService.Adicionar(post);
 

@@ -2,6 +2,7 @@
 using IPS.Feed.API.Interfaces;
 using IPS.Feed.API.Repository;
 using IPS.Feed.API.Services;
+using IPS.WebApi.Core.Usuario;
 using System.Collections.Generic;
 
 namespace IPS.Feed.API.Configuration
@@ -14,7 +15,8 @@ namespace IPS.Feed.API.Configuration
             services.AddScoped<IPostagemRepository, PostagemRepository>();
             services.AddScoped<IPostagemService, PostagemService>();
 
-           
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IAspNetUser, AspNetUser>();
 
             return services;
         }

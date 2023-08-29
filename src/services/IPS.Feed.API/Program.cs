@@ -1,9 +1,11 @@
 using IPS.Feed.API.Configuration;
+using IPS.WebApi.Core.Identidade;
 
 // (START) Add services to the container.
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddApiConfiguration(builder.Configuration);
+builder.Services.AddJwtConfiguration(builder.Configuration);
 builder.Services.AddSwaggerConfiguration();
 builder.Services.RegisterServices();
 // (END) Add services to the container.
