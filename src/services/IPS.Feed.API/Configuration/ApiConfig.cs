@@ -2,6 +2,7 @@
 using IPS.WebApi.Core.Identidade;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using System.Text.Json;
 
 namespace IPS.Feed.API.Configuration
 {
@@ -14,8 +15,11 @@ namespace IPS.Feed.API.Configuration
               options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllers()
-                .AddJsonOptions(o => o.JsonSerializerOptions
-                 .ReferenceHandler = ReferenceHandler.Preserve);
+             .AddJsonOptions(options =>
+             {
+                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+             });
 
             return services;
         }

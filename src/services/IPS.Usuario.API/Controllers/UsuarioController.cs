@@ -13,11 +13,5 @@ namespace IPS.Usuario.API.Controllers
             _userService = userService;
         }
         
-        [HttpPost("novo-usuario")]
-        public ActionResult Create([FromBody] UsuarioLogado user)
-        {   
-           //_userService.Adicionar(new UsuarioLogado("drey", 2222222, DateTime.Now));
-            return Ok();
-        }
     }
 }
