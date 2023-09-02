@@ -18,5 +18,10 @@ namespace IPS.Feed.API.Repository
         {
             return await Db.Postagem.AsNoTracking().Include(p => p.Curtidas).Include(p => p.Comentarios).FirstOrDefaultAsync(p => p.Id == Idpostagem);
         }
+
+        public async Task<bool> PostagemUsuario(Guid IdUser, Guid Idpostagem)
+        {
+            return Db.Postagem.AsNoTracking().Where(p => p.Id.Equals(Idpostagem) && p.IdUsuario.Equals(IdUser)).Any();
+        }
     }
 }

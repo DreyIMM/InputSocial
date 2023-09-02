@@ -30,5 +30,20 @@ namespace IPS.Feed.API.Services
             await _postagemRepository.Adicionar(post);
 
         }
+
+        public async Task<bool> Remover(Guid id)
+        {
+            //Pega o ID do Usuario Logado
+            Guid userLogado = _user.ObterUserId();
+            
+            //verificar se a postagem é do usuario
+            var result = await _postagemRepository.PostagemUsuario(userLogado, id);
+            
+            if(!result) return false;
+
+            //remover postagem
+            await _postagemRepository.Remover(id);
+            return true;
+        }
     }
 }

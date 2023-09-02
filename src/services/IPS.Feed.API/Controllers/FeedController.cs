@@ -28,7 +28,7 @@ namespace IPS.Feed.API.Controllers
         {
             var result = await _postagemRepository.ObterTodasPostagem();
 
-            return result.ToPostListDTO();            
+            return result.ToPostListDTO();          
                 
         }
 
@@ -54,5 +54,23 @@ namespace IPS.Feed.API.Controllers
 
             return Ok();
         }
+
+        [HttpDelete("postagem/apagar/{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult> PostagemRemove(Guid id)
+        {
+            var result = await _postagemService.Remover(id);
+
+            if (!result)
+            {
+                AdicionarErroProcessamento("Publicação não pode ser excluída");
+                return CustomResponse();
+            }
+
+            return Ok("Publicação excluída");
+        }
+
+
     }    
 }
