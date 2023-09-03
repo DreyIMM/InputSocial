@@ -8,5 +8,7 @@ namespace IPS.Feed.API.Interfaces
         Task<List<Postagem>> ObterTodasPostagem(); 
         Task<Postagem> ObterDetalhePostagem(Guid Idpostagem);
         Task<bool> PostagemUsuario(Guid IdUser, Guid IdPostagem);
+        Task<List<Postagem>> PostagensUsuario(Guid IdUser);
+
     }
 }

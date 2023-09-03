@@ -1,4 +1,5 @@
 ﻿using IPS.Feed.API.DTO;
+using IPS.Feed.API.Extensions;
 using IPS.Feed.API.Interfaces;
 using IPS.Feed.API.Models;
 using IPS.WebApi.Core.Usuario;
@@ -44,6 +45,13 @@ namespace IPS.Feed.API.Services
             //remover postagem
             await _postagemRepository.Remover(id);
             return true;
+        }
+
+        public async Task<List<PostagensDTO>> PostagensUsuario()
+        {
+            var result = await _postagemRepository.PostagensUsuario(_user.ObterUserId());
+            var dto = result.ToPostListDTO().ToList();
+            return dto;
         }
     }
 }

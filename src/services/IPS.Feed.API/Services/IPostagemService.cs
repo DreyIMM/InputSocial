@@ -8,6 +8,8 @@ namespace IPS.Feed.API.Services
     {
         Task Adicionar(PostagemAddDTO post);
         Task<bool> Remover(Guid id);
+        Task<List<PostagensDTO>> PostagensUsuario();
+
 
     }
 }

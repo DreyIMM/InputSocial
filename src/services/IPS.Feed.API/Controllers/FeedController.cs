@@ -28,8 +28,7 @@ namespace IPS.Feed.API.Controllers
         {
             var result = await _postagemRepository.ObterTodasPostagem();
 
-            return result.ToPostListDTO();          
-                
+            return result.ToPostListDTO(); 
         }
 
         [HttpGet("postagem/{id}")]
@@ -40,7 +39,17 @@ namespace IPS.Feed.API.Controllers
             var result = await _postagemRepository.ObterDetalhePostagem(id);
 
             return result.ToUniquePostDTO();
+        }
 
+        [HttpGet("postagens/perfil")]
+        [ProducesResponseType(typeof(PostagensDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<List<PostagensDTO>> PostagemDetalhe()
+        {
+            var result = await _postagemService.PostagensUsuario();
+            
+            return result;
+            
         }
 
         [HttpPost("postagem")]
