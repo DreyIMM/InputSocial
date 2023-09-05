@@ -1,7 +1,7 @@
 ﻿using IPS.Core.DomainObjects;
-using IPS.Feed.API.Models.Validations;
+using IPS.Feed.Domain.Models.Validations;
 
-namespace IPS.Feed.API.Models
+namespace IPS.Feed.Domain.Models
 {
     public class Postagem: Entity
     {
@@ -19,6 +19,12 @@ namespace IPS.Feed.API.Models
         {
             IdUsuario = idUsuario;
             DataPostagems = DateTime.UtcNow;
+            Modificado = modificado;
+            Mensagem = mensagem;
+        }
+
+        public Postagem( bool modificado, string mensagem)
+        {
             Modificado = modificado;
             Mensagem = mensagem;
         }

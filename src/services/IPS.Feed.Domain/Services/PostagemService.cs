@@ -1,9 +1,7 @@
-﻿using IPS.Feed.API.DTO;
-using IPS.Feed.API.Extensions;
-using IPS.Feed.API.Interfaces;
-using IPS.Feed.API.Models;
+﻿using IPS.Feed.Domain.Interfaces;
+using IPS.Feed.Domain.Models;
+using IPS.Feed.Domain.Services;
 using IPS.WebApi.Core.Usuario;
-using System.ComponentModel;
 
 namespace IPS.Feed.API.Services
 {
@@ -18,18 +16,16 @@ namespace IPS.Feed.API.Services
             _user = user;
         }
 
-        public async Task Adicionar(PostagemAddDTO dto)
+        public async Task Adicionar(Postagem post)
         {
-
             //Instancia de Postagem
-            Postagem post = new Postagem(_user.ObterUserId(), dto.Modificado, dto.Mensagem);
+            post.IdUsuario = _user.ObterUserId();
 
             //verifica se tem erros via Fluent
             if(!post.EhValido()) return;
 
             //Adiciona no banco
             await _postagemRepository.Adicionar(post);
-
         }
 
         public async Task<bool> Remover(Guid id)
@@ -47,11 +43,9 @@ namespace IPS.Feed.API.Services
             return true;
         }
 
-        public async Task<List<PostagensDTO>> PostagensUsuario()
+        public async Task<List<Postagem>> PostagensUsuario()
         {
-            var result = await _postagemRepository.PostagensUsuario(_user.ObterUserId());
-            var dto = result.ToPostListDTO().ToList();
-            return dto;
+            return await _postagemRepository.PostagensUsuario(_user.ObterUserId());
         }
     }
 }

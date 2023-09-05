@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\IPS.Core\IPS.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\IPS.WebApi.Core\IPS.WebApi.Core.csproj" />
+  </ItemGroup>
+
+</Project>

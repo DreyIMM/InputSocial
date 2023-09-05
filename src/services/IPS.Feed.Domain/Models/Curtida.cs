@@ -1,6 +1,6 @@
 ﻿using IPS.Core.DomainObjects;
 
-namespace IPS.Feed.API.Models
+namespace IPS.Feed.Domain.Models
 {
     public class Curtida : Entity
     {

@@ -1,7 +1,8 @@
 ﻿using IPS.Feed.API.DTO;
 using IPS.Feed.API.Extensions;
-using IPS.Feed.API.Interfaces;
-using IPS.Feed.API.Services;
+using IPS.Feed.Domain.Interfaces;
+using IPS.Feed.Domain.Models;
+using IPS.Feed.Domain.Services;
 using IPS.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,18 @@ namespace IPS.Feed.API.Controllers
             _postagemService = postagemService;
         }
 
+        [HttpPost("postagem")]
+        [ProducesResponseType(typeof(PostagemAddDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PostagemAddDTO>> PostagemAdd([FromBody] PostagemAddDTO postDTO)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+            Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem);
+            await _postagemService.Adicionar(post);
+
+            return Ok(postDTO);
+        }
+
         [HttpGet]
         [ProducesResponseType(typeof(PostagensDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
@@ -34,11 +47,15 @@ namespace IPS.Feed.API.Controllers
         [HttpGet("postagem/{id}")]
         [ProducesResponseType(typeof(PostagemDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<PostagemDTO> PostagemDetalhe(Guid id)
+        public async Task<ActionResult<PostagemDTO>> PostagemDetalhe(Guid id)
         {   
             var result = await _postagemRepository.ObterDetalhePostagem(id);
-
-            return result.ToUniquePostDTO();
+            if (result is null)
+            {
+                AdicionarErroProcessamento("Postagem não encontrada");
+                return CustomResponse();
+            }
+            return Ok(result.ToUniquePostDTO());
         }
 
         [HttpGet("postagens/perfil")]
@@ -48,21 +65,9 @@ namespace IPS.Feed.API.Controllers
         {
             var result = await _postagemService.PostagensUsuario();
             
-            return result;
-            
+            return result.ToPostListDTO().ToList();
         }
-
-        [HttpPost("postagem")]
-        [ProducesResponseType(typeof(PostagemAddDTO), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PostagemAddDTO>> PostagemAdd([FromBody] PostagemAddDTO post)
-        {
-            if (!ModelState.IsValid) return CustomResponse(ModelState);
-
-            await _postagemService.Adicionar(post);
-
-            return Ok();
-        }
+        
 
         [HttpDelete("postagem/apagar/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]

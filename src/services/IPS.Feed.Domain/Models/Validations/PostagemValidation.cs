@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace IPS.Feed.API.Models.Validations
+namespace IPS.Feed.Domain.Models.Validations
 {
     public class PostagemValidation : AbstractValidator<Postagem>
     {

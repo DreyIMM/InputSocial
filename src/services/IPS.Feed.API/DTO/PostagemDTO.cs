@@ -1,4 +1,4 @@
-﻿using IPS.Feed.API.Models;
+﻿using IPS.Feed.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
@@ -22,7 +22,7 @@ namespace IPS.Feed.API.DTO
         public bool Modificado { get; set; }
         public string Mensagem { get; set; }
         public int TotalCurtidas { get; set; }
-        public IEnumerable<ComentarioDTO> Comentarios { get; set; }
+        public IEnumerable<ComentarioDTO> Comentarios { get; set; } = new List<ComentarioDTO>();
     }
 
     public record PostagemAddDTO

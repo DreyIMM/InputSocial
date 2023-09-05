@@ -1,9 +1,9 @@
-﻿using IPS.Feed.API.Data;
-using IPS.Feed.API.Interfaces;
-using IPS.Feed.API.Models;
+﻿using IPS.Feed.Infra.Data;
+using IPS.Feed.Domain.Interfaces;
+using IPS.Feed.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace IPS.Feed.API.Repository
+namespace IPS.Feed.Infra.Repository
 {
     public class PostagemRepository : Repository<Postagem>, IPostagemRepository
     {

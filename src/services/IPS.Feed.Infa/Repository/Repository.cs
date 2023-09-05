@@ -1,9 +1,9 @@
 ﻿using IPS.Core.DomainObjects;
-using IPS.Feed.API.Data;
+using IPS.Feed.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace IPS.Feed.API.Repository
+namespace IPS.Feed.Infra.Repository
 {
     public abstract class Repository<TEntity> where TEntity : Entity, new()
     {

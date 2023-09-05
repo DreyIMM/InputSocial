@@ -1,7 +1,7 @@
 ﻿using IPS.Core.DomainObjects;
 using System.Linq.Expressions;
 
-namespace IPS.Feed.API.Interfaces
+namespace IPS.Feed.Domain.Interfaces
 {
     public interface IRepository<TEntity> : IDisposable where TEntity : Entity
     {

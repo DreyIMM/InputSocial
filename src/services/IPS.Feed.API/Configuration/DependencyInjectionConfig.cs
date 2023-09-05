@@ -1,9 +1,9 @@
-﻿using IPS.Feed.API.Data;
-using IPS.Feed.API.Interfaces;
-using IPS.Feed.API.Repository;
-using IPS.Feed.API.Services;
+﻿using IPS.Feed.API.Services;
+using IPS.Feed.Domain.Interfaces;
+using IPS.Feed.Domain.Services;
+using IPS.Feed.Infra.Data;
+using IPS.Feed.Infra.Repository;
 using IPS.WebApi.Core.Usuario;
-using System.Collections.Generic;
 
 namespace IPS.Feed.API.Configuration
 {

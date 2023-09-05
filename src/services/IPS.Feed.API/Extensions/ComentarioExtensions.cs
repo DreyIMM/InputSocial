@@ -1,5 +1,5 @@
 ﻿using IPS.Feed.API.DTO;
-using IPS.Feed.API.Models;
+using IPS.Feed.Domain.Models;
 
 namespace IPS.Feed.API.Extensions
 {

@@ -1,8 +1,8 @@
-﻿using IPS.Feed.API.Data;
-using IPS.WebApi.Core.Identidade;
+﻿using IPS.WebApi.Core.Identidade;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using System.Text.Json;
+using IPS.Feed.Infra.Data;
 
 namespace IPS.Feed.API.Configuration
 {

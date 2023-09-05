@@ -1,7 +1,6 @@
-﻿using IPS.Core.DomainObjects;
-using IPS.Feed.API.Models;
+﻿using IPS.Feed.Domain.Models;
 
-namespace IPS.Feed.API.Interfaces
+namespace IPS.Feed.Domain.Interfaces
 {
     public interface IPostagemRepository : IRepository<Postagem>
     {
