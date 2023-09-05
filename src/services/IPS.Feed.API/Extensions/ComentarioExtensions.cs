@@ -5,21 +5,18 @@ namespace IPS.Feed.API.Extensions
 {
     public static class ComentarioExtensions
     {
-        public static ComentarioDTO ToComentarioDTO(this Comentario comentario)
+        public static ComentarioAddDTO ToComentarioAddDTO(this Comentario comentario)
         {
-            return new ComentarioDTO
+            return new ComentarioAddDTO
             {
-                Id              = comentario.Id,
                 IdUsuario       = comentario.IdUsuario,
-                IdPostagem      = comentario.IdPostagem,
                 Mensagem        = comentario.Mensagem,
-                DataComentario  = comentario.Data
             };
         }
 
-        public static IEnumerable<ComentarioDTO> ToComentariosListDTO(this IEnumerable<Comentario> comentario)
+        public static IEnumerable<ComentarioAddDTO> ToComentariosListDTO(this IEnumerable<Comentario> comentario)
         {
-            return comentario.Select(c => c.ToComentarioDTO());
+            return comentario.Select(c => c.ToComentarioAddDTO());
         }
     }
 }

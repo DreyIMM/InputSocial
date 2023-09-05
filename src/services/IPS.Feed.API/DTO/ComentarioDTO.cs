@@ -1,11 +1,11 @@
-﻿namespace IPS.Feed.API.DTO
+﻿using System.Text.Json.Serialization;
+
+namespace IPS.Feed.API.DTO
 {
-        public record ComentarioDTO
+        public record ComentarioAddDTO
         {
-            public Guid Id { get; set; }
+            [JsonIgnore]
             public Guid IdUsuario { get; set; }
-            public Guid IdPostagem { get; set; }
-            public DateTime DataComentario { get; set; }
             public string Mensagem { get; set; }
         }       
     

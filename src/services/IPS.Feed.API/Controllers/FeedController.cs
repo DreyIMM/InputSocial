@@ -16,10 +16,14 @@ namespace IPS.Feed.API.Controllers
     {
         private readonly IPostagemRepository _postagemRepository;
         private readonly IPostagemService _postagemService;
-        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService)
+        private readonly IComentarioService _comentarioService;
+        private readonly IComentarioRepository _comentarioRepository;
+        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository)
         {
             _postagemRepository = postagemRepository;
             _postagemService = postagemService;
+            _comentarioService = comentarioService;
+            _comentarioRepository = comentarioRepository;
         }
 
         [HttpPost("postagem")]
@@ -84,6 +88,21 @@ namespace IPS.Feed.API.Controllers
 
             return Ok("Publicação excluída");
         }
+
+
+        [HttpPost("postagem/{idComentario}/comentario")]
+        [ProducesResponseType(typeof(ComentarioAddDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PostagemAddDTO>> PostagemAdd(Guid idComentario, [FromBody] ComentarioAddDTO dto)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            Comentario comentario = new Comentario(idComentario, dto.Mensagem);
+            await _comentarioService.Adicionar(comentario);
+
+            return Ok(comentario);
+        }
+
 
 
     }    

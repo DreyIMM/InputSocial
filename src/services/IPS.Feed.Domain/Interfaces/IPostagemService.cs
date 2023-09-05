@@ -8,6 +8,5 @@ namespace IPS.Feed.Domain.Services
         Task<bool> Remover(Guid id);
         Task<List<Postagem>> PostagensUsuario();
 
-
     }
 }
