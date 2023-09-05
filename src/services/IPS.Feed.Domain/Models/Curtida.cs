@@ -12,7 +12,7 @@ namespace IPS.Feed.Domain.Models
         {
             IdUsuario = idUsuario;
             IdPostagem = idPostagem;
-            DataCurtida = DateTime.Now;
+            DataCurtida = DateTime.Now.ToUniversalTime(); ;
         }
 
 

@@ -13,7 +13,7 @@ namespace IPS.Feed.Domain.Models
         {
             IdPostagem = idPostagem;
             Mensagem = mensagem;
-            Data = DateTime.UtcNow;
+            Data = DateTime.Now.ToUniversalTime(); ;
         }
 
 

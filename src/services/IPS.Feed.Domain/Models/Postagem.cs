@@ -6,7 +6,7 @@ namespace IPS.Feed.Domain.Models
     public class Postagem: Entity
     {
         public Guid IdUsuario { get; set; }
-        public DateTime DataPostagems { get; set; }
+        public DateTime DataPostagems { get; set; } 
         public bool Modificado { get; set; }
         public string Mensagem { get; set; } = string.Empty;
 
@@ -18,15 +18,15 @@ namespace IPS.Feed.Domain.Models
         public Postagem(Guid idUsuario, bool modificado, string mensagem)
         {
             IdUsuario = idUsuario;
-            DataPostagems = DateTime.UtcNow;
             Modificado = modificado;
             Mensagem = mensagem;
         }
 
-        public Postagem( bool modificado, string mensagem)
+        public Postagem(bool modificado, string mensagem)
         {
             Modificado = modificado;
             Mensagem = mensagem;
+            DataPostagems = DateTime.Now.ToUniversalTime();
         }
 
         internal bool EhValido()
