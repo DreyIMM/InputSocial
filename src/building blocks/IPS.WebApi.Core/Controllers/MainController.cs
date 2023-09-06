@@ -44,6 +44,7 @@ namespace IPS.WebApi.Core.Controllers
 
             return CustomResponse();
         }
+        
 
         protected bool OperacaoValida()
         {

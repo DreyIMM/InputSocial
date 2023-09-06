@@ -1,8 +1,8 @@
-﻿using IPS.Feed.API.Models;
+﻿using IPS.Feed.Domain.Models;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
 
-namespace IPS.Feed.API.Mappings
+namespace IPS.Feed.Infra.Mappings
 {
     public class ComentarioMapping : IEntityTypeConfiguration<Comentario>
     {

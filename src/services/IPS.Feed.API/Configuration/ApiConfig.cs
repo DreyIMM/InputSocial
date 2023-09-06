@@ -1,7 +1,9 @@
-﻿using IPS.Feed.API.Data;
-using IPS.WebApi.Core.Identidade;
+﻿using IPS.WebApi.Core.Identidade;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using System.Text.Json;
+using IPS.Feed.Infra.Data;
+using Npgsql;
 
 namespace IPS.Feed.API.Configuration
 {
@@ -10,12 +12,18 @@ namespace IPS.Feed.API.Configuration
 
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
             services.AddDbContext<FeedContext>(options =>
               options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
+
             services.AddControllers()
-                .AddJsonOptions(o => o.JsonSerializerOptions
-                 .ReferenceHandler = ReferenceHandler.Preserve);
+             .AddJsonOptions(options =>
+             {
+                 options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+             });
 
             return services;
         }

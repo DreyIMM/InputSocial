@@ -1,6 +1,6 @@
 ﻿using IPS.Core.DomainObjects;
 
-namespace IPS.Feed.API.Models
+namespace IPS.Feed.Domain.Models
 {
     public class Curtida : Entity
     {
@@ -12,13 +12,13 @@ namespace IPS.Feed.API.Models
         {
             IdUsuario = idUsuario;
             IdPostagem = idPostagem;
-            DataCurtida = DateTime.Now;
+            DataCurtida = DateTime.Now.ToUniversalTime(); ;
         }
 
 
         //EF
         public Postagem Postagem { get; set; } = null!;
-        protected Curtida() { }
+        public Curtida() { }
     
     }
 }

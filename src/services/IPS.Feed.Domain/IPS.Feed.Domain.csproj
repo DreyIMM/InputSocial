@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="FluentValidation" Version="8.6.2" />
-		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.0" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\IPS.Core\IPS.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\IPS.WebApi.Core\IPS.WebApi.Core.csproj" />
+  </ItemGroup>
 
 </Project>

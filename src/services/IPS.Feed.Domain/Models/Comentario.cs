@@ -1,6 +1,6 @@
 ﻿using IPS.Core.DomainObjects;
 
-namespace IPS.Feed.API.Models
+namespace IPS.Feed.Domain.Models
 {
     public class Comentario : Entity
     {
@@ -9,17 +9,16 @@ namespace IPS.Feed.API.Models
         public string Mensagem { get; set; } = string.Empty;
         public DateTime Data { get; set; }
 
-        public Comentario(Guid idUsuario, Guid idPostagem, string mensagem)
+        public Comentario(Guid idPostagem, string mensagem)
         {
-            IdUsuario = idUsuario;
             IdPostagem = idPostagem;
             Mensagem = mensagem;
-            Data = DateTime.Now;
+            Data = DateTime.Now.ToUniversalTime(); ;
         }
 
 
         //EF
-        protected Comentario() { }
+        public Comentario() { }
         public Postagem Postagem { get; set; } = null!;
 
 

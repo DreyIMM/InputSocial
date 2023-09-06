@@ -1,7 +1,7 @@
-﻿using IPS.Feed.API.Models;
+﻿using IPS.Feed.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace IPS.Feed.API.Data
+namespace IPS.Feed.Infra.Data
 {
     public class FeedContext : DbContext
     {

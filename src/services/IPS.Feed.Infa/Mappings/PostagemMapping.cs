@@ -1,8 +1,8 @@
-﻿using IPS.Feed.API.Models;
+﻿using IPS.Feed.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace IPS.Feed.API.Mappings
+namespace IPS.Feed.Infra.Mappings
 {
     public class PostagemMapping : IEntityTypeConfiguration<Postagem>
     {
