@@ -18,12 +18,14 @@ namespace IPS.Feed.API.Controllers
         private readonly IPostagemService _postagemService;
         private readonly IComentarioService _comentarioService;
         private readonly IComentarioRepository _comentarioRepository;
-        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository)
+        private readonly ICurtidaService _curtidaService;
+        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService)
         {
             _postagemRepository = postagemRepository;
             _postagemService = postagemService;
             _comentarioService = comentarioService;
             _comentarioRepository = comentarioRepository;
+            _curtidaService = curtidaService;
         }
 
         [HttpPost("postagem")]
@@ -65,7 +67,7 @@ namespace IPS.Feed.API.Controllers
         [HttpGet("postagens/perfil")]
         [ProducesResponseType(typeof(PostagensDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<List<PostagensDTO>> PostagemDetalhe()
+        public async Task<List<PostagensDTO>> Postagensdetalhes()
         {
             var result = await _postagemService.PostagensUsuario();
             
@@ -76,7 +78,7 @@ namespace IPS.Feed.API.Controllers
         [HttpDelete("postagem/apagar/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult> PostagemRemove(Guid id)
+        public async Task<ActionResult> PostagemRemover(Guid id)
         {
             var result = await _postagemService.Remover(id);
 
@@ -90,17 +92,33 @@ namespace IPS.Feed.API.Controllers
         }
 
 
-        [HttpPost("postagem/{idComentario}/comentario")]
+        [HttpPost("postagem/{idPostagem}/comentario")]
         [ProducesResponseType(typeof(ComentarioAddDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PostagemAddDTO>> PostagemAdd(Guid idComentario, [FromBody] ComentarioAddDTO dto)
+        public async Task<ActionResult<PostagemAddDTO>> ComentarioAdd(Guid idPostagem, [FromBody] ComentarioAddDTO dto)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            Comentario comentario = new Comentario(idComentario, dto.Mensagem);
+            Comentario comentario = new Comentario(idPostagem, dto.Mensagem);
             await _comentarioService.Adicionar(comentario);
 
             return Ok(comentario);
+        }
+
+        [HttpPost("postagem/{idPostagem}/curti")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<string>> Curtir(Guid idPostagem)
+        {
+            if (idPostagem.Equals(Guid.Empty))
+            {
+                AdicionarErroProcessamento("Informa a postagem");
+                return CustomResponse();
+            };
+
+            var result = await _curtidaService.Adicionar(idPostagem);
+
+            return Ok(result);
         }
 
 

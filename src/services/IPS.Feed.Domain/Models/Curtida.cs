@@ -18,7 +18,7 @@ namespace IPS.Feed.Domain.Models
 
         //EF
         public Postagem Postagem { get; set; } = null!;
-        protected Curtida() { }
+        public Curtida() { }
     
     }
 }
