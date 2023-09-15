@@ -8,7 +8,7 @@ namespace IPS.Identidade.API.Models
         public string UserName { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int Celular { get; set; }
+        public string Celular { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [RegularExpression(@"^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[0-2])/\d{4}$", ErrorMessage = "Formato de data inválido. Use o formato dd/mm/yyyy.")]

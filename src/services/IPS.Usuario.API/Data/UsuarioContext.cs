@@ -9,5 +9,10 @@ namespace IPS.Usuario.API.Data
 
         public DbSet<UsuarioLogado> Usuarios { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("public");
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

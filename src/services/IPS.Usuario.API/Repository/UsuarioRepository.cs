@@ -29,5 +29,10 @@ namespace IPS.Usuario.API.Repository
         {
             _context?.Dispose();
         }
+
+        public async Task<bool> ExisteCelular(string celular)
+        {
+           return await _context.Usuarios.AsNoTracking().Where(u => u.Celular.Equals(celular)).AnyAsync();
+        }
     }
 }

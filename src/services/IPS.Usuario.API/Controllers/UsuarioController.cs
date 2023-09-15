@@ -7,11 +7,6 @@ namespace IPS.Usuario.API.Controllers
 {
     public class UsuarioController : MainController
     {
-        private readonly IUsuarioService _userService;
-        public UsuarioController(IUsuarioService userService)
-        {
-            _userService = userService;
-        }
-        
+       
     }
 }

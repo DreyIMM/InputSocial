@@ -35,8 +35,9 @@ namespace IPS.Usuario.API.Services
             {
                 var service = scoped.ServiceProvider.GetRequiredService<IUsuarioRepository>();
 
+                if(await service.ExisteCelular(usuario.Celular)) return new ResponseMessage(false);
+                
                 await service.Adicionar(usuario);
-
             }
 
             return new ResponseMessage(true);

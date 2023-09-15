@@ -10,10 +10,10 @@ namespace IPS.Core.Messages
     {
         public Guid Id { get; private set; }
         public string UserName { get; set; }
-        public int Celular { get; set; }
+        public string Celular { get; set; }
         public DateTime DataAniversario { get; set; }
 
-        public UsuarioRegistradoIntegrationEvent(Guid id, string userName, int celular, DateTime dtAniversario)
+        public UsuarioRegistradoIntegrationEvent(Guid id, string userName, string celular, DateTime dtAniversario)
         {
             Id = id;
             UserName = userName; 

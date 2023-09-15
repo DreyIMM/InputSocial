@@ -7,6 +7,7 @@ namespace IPS.Usuario.API.Repository
     {
         Task Adicionar(UsuarioLogado usuario);
 
+        Task<bool> ExisteCelular(string celular);
 
     }
 }
