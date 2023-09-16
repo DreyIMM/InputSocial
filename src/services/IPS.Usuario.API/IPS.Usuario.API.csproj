@@ -26,4 +26,8 @@
     <ProjectReference Include="..\..\building blocks\IPS.WebApi.Core\IPS.WebApi.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
+
 </Project>

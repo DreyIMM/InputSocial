@@ -3,16 +3,16 @@ namespace IPS.WebApi.Core.Service
 {
     public abstract class BaseService
     {
-        protected ValidationResult ValidationResult;
+        protected ValidationResult validationResult;
 
         protected BaseService()
         {
-            ValidationResult = new ValidationResult();
+            validationResult = new ValidationResult();
         }
 
         protected void AdicionarErro(string mensagem)
         {
-            ValidationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
+            validationResult.Errors.Add(new ValidationFailure(string.Empty, mensagem));
         }
 
     }

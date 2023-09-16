@@ -1,11 +1,14 @@
-﻿using IPS.Core.DomainObjects;
+﻿using FluentValidation.Results;
+using IPS.Core.DomainObjects;
+using IPS.Core.Messages;
 using IPS.Usuario.API.Data;
 using IPS.Usuario.API.Models;
+using IPS.WebApi.Core.Service;
 using Microsoft.EntityFrameworkCore;
 
 namespace IPS.Usuario.API.Repository
 {
-    public class UsuarioRepository : IUsuarioRepository
+    public class UsuarioRepository : BaseService,IUsuarioRepository
     {
         private readonly UsuarioContext _context;
 
@@ -14,10 +17,23 @@ namespace IPS.Usuario.API.Repository
             _context = context;
         }
 
-        public async Task Adicionar(UsuarioLogado usuario)
+        //Formato para o grupo entender (não é a implementação ideal)
+        public async Task<ValidationResult> Adicionar(UsuarioLogado usuario)
         {
-            _context.AddAsync(usuario);
-            await SaveChanges();
+
+            var existeCelular = await ExisteCelular(usuario.Celular);
+
+            if (existeCelular) {
+                AdicionarErro("Celular em uso");
+
+                return validationResult;
+            } else {
+
+                _context.AddAsync(usuario);
+                await SaveChanges();
+                
+                return validationResult;
+            }; 
         }
 
         public async Task<int> SaveChanges()
