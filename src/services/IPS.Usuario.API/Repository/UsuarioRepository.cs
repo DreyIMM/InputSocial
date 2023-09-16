@@ -22,7 +22,6 @@ namespace IPS.Usuario.API.Repository
         {
 
             var existeCelular = await ExisteCelular(usuario.Celular);
-
             if (existeCelular) {
                 AdicionarErro("Celular em uso");
 
