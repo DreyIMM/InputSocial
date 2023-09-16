@@ -1,6 +1,4 @@
 ﻿using FluentValidation.Results;
-using IPS.Core.DomainObjects;
-using IPS.Core.Messages;
 using IPS.Usuario.API.Data;
 using IPS.Usuario.API.Models;
 using IPS.WebApi.Core.Service;
@@ -17,22 +15,36 @@ namespace IPS.Usuario.API.Repository
             _context = context;
         }
 
+        
+
         //Formato para o grupo entender (não é a implementação ideal)
         public async Task<ValidationResult> Adicionar(UsuarioLogado usuario)
         {
 
             var existeCelular = await ExisteCelular(usuario.Celular);
-            if (existeCelular) {
+            var existeUser = await ExisteUser(usuario.UserName);
+
+
+
+            if (existeUser)   {
+                AdicionarErro("Usuário já cadastrado!");
+            }
+
+            if (existeCelular) {                  
                 AdicionarErro("Celular em uso");
 
-                return validationResult;
-            } else {
+            }
 
-                _context.AddAsync(usuario);
-                await SaveChanges();
-                
+
+            if (existeUser || existeCelular)
+            {
                 return validationResult;
-            }; 
+            }
+
+            _context.AddAsync(usuario);
+            await SaveChanges();
+
+            return validationResult;
         }
 
         public async Task<int> SaveChanges()
@@ -48,6 +60,12 @@ namespace IPS.Usuario.API.Repository
         public async Task<bool> ExisteCelular(string celular)
         {
            return await _context.Usuarios.AsNoTracking().Where(u => u.Celular.Equals(celular)).AnyAsync();
+        }
+
+        public async Task<bool> ExisteUser(string username)
+        {
+            //var usernameP = username.ToUpper();
+            return await _context.Usuarios.AsNoTracking().Where(u => String.Equals(u.UserName, username ,StringComparison.CurrentCultureIgnoreCase)).AnyAsync();
         }
     }
 }
