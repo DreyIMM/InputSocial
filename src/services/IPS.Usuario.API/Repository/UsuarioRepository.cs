@@ -27,12 +27,11 @@ namespace IPS.Usuario.API.Repository
 
 
             if (existeUser)   {
-                AdicionarErro("Usuário já cadastrado!");
+                AdicionarErro("Username já cadastrado!");
             }
 
             if (existeCelular) {                  
-                AdicionarErro("Celular em uso");
-
+                AdicionarErro("Celular já cadastrado!");
             }
 
 
@@ -64,8 +63,7 @@ namespace IPS.Usuario.API.Repository
 
         public async Task<bool> ExisteUser(string username)
         {
-            //var usernameP = username.ToUpper();
-            return await _context.Usuarios.AsNoTracking().Where(u => String.Equals(u.UserName, username ,StringComparison.CurrentCultureIgnoreCase)).AnyAsync();
+            return await _context.Usuarios.AsNoTracking().Where(u => u.UserName.ToLower() == username.ToLower()).AnyAsync();
         }
     }
 }
