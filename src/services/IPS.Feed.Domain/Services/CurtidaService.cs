@@ -29,12 +29,28 @@ namespace IPS.Feed.Domain.Services
 
             if (result is not null)
             {
-                await _curtidaRepository.Remover(result.Id);
-                return "removeu curtida";
+                try
+                {
+                    await _curtidaRepository.Remover(result.Id);
+                }
+                catch 
+                {
+                    return "Erro ao processar curtida no banco de dados";
+                }
+                return "Curtida removida";
             }
-
-            await _curtidaRepository.Adicionar(curtida);
-            return "Curtida adicionada";
+            else
+            {
+                try
+                {
+                    await _curtidaRepository.Adicionar(curtida);
+                }
+                catch
+                {
+                    return "Erro ao processar curtida no banco de dados";
+                }
+                return "Curtida adicionada";
+            }
         }
     }
 }
