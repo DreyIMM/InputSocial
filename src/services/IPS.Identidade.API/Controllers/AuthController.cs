@@ -50,10 +50,9 @@ namespace IPS.Identidade.API.Controllers
             if (result.Succeeded)
             {
                 //envia um request para API (Mensageria) Cliente
-
                 var resultadoUsuario = await RegistrarUsuario(usuarioRegistro);
 
-                if (!resultadoUsuario.ValidationResult)
+                if (!resultadoUsuario.ValidationResult.IsValid)
                 {
                     await _userManager.DeleteAsync(user);
                     return CustomResponse(resultadoUsuario.ValidationResult);

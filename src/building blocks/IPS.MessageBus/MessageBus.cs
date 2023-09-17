@@ -3,7 +3,7 @@ using EasyNetQ.Internals;
 using IPS.Core.Messages;
 using Polly;
 using RabbitMQ.Client.Exceptions;
-
+using System.Diagnostics;
 
 namespace IPS.MessageBus
 {
@@ -80,8 +80,8 @@ namespace IPS.MessageBus
 
             var policy = Policy.Handle<EasyNetQException>()
                 .Or<BrokerUnreachableException>()
-                .WaitAndRetry(3, retryAttempt =>
-                    TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)));
+                .WaitAndRetry(5, retryAttempt =>
+                    TimeSpan.FromSeconds(Math.Pow(5, retryAttempt)));
 
             policy.Execute(() =>
             {
@@ -89,6 +89,7 @@ namespace IPS.MessageBus
                 _advancedBus = _bus.Advanced;
                 _advancedBus.Disconnected += OnDisconnect;
             });
+            Debug.WriteLine("Status ", _advancedBus);
         }
 
         private void OnDisconnect(object s, EventArgs e)

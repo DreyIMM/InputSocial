@@ -12,6 +12,7 @@ namespace IPS.WebApi.Core.Identidade
         public int ExpiracaoHoras { get; set; }
         public string Emissor { get; set; }
         public string ValidoEm { get; set; }
+        public string ConnectionString { get; set; }
 
     }
 }

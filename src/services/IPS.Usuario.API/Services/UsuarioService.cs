@@ -1,4 +1,5 @@
-﻿using IPS.Core.Messages;
+﻿using FluentValidation.Results;
+using IPS.Core.Messages;
 using IPS.MessageBus;
 using IPS.Usuario.API.Models;
 using IPS.Usuario.API.Repository;
@@ -28,18 +29,16 @@ namespace IPS.Usuario.API.Services
         private async Task<ResponseMessage> RegistrarUsuario(UsuarioRegistradoIntegrationEvent user)
         {
             var usuario = new UsuarioLogado(user.Id, user.UserName, user.Celular, user.DataAniversario);
-
-            if (!usuario.EhValido()) return new ResponseMessage(false);
+            ValidationResult sucesso;
 
             using (var scoped = _serviceProvider.CreateScope())
             {
                 var service = scoped.ServiceProvider.GetRequiredService<IUsuarioRepository>();
-
-                await service.Adicionar(usuario);
-
+                
+                sucesso = await service.Adicionar(usuario);
             }
 
-            return new ResponseMessage(true);
+            return new ResponseMessage(sucesso);
         }
 
     }

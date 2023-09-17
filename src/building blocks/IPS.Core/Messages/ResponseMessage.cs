@@ -1,21 +1,15 @@
-﻿
-
-using FluentValidation.Results;
+﻿using FluentValidation.Results;
 
 namespace IPS.Core.Messages
 {
     public class ResponseMessage : Message
     {
         //Alterar futuramente para ValidationResult, o tipo
-        public bool ValidationResult { get; set; }
+        public ValidationResult ValidationResult { get; set; }
 
-        public ResponseMessage(bool validationResult)
+        public ResponseMessage(ValidationResult validationResult)
         {
             ValidationResult = validationResult;
-        }
-
-        public ResponseMessage()
-        {
         }
     }
 }

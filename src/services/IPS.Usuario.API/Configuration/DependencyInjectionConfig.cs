@@ -10,10 +10,9 @@ namespace IPS.Usuario.API.Configuration
     {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddScoped<UsuarioContext>();
-            services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-            services.AddMessageBus(configuration.GetMessageQueueConnection("MessageBus"))
-                           .AddHostedService<UsuarioService>();
+            services.AddTransient<UsuarioContext>();
+            services.AddTransient<IUsuarioRepository, UsuarioRepository>();
+            
         }
     }
 }
