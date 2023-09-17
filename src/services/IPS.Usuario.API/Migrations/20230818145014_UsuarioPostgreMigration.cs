@@ -16,7 +16,7 @@ namespace IPS.Usuario.API.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     UserName = table.Column<string>(type: "text", nullable: false),
                     Celular = table.Column<int>(type: "integer", nullable: false),
-                    DataAniversario = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    DataAniversario = table.Column<DateTime>(type: "date", nullable: false)
                 },
                 constraints: table =>
                 {

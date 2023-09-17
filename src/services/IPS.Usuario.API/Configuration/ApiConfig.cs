@@ -10,6 +10,9 @@ namespace IPS.Usuario.API.Configuration
             services.AddDbContext<UsuarioContext>(options =>
               options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
 
+            var appConnectionStrings = configuration.GetSection("ConnectionStrings");
+            services.Configure<ConnectionStrings>(appConnectionStrings);
+
 
             services.AddControllers();
 

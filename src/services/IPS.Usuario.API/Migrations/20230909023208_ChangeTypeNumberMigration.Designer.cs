@@ -3,6 +3,7 @@ using System;
 using IPS.Usuario.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,13 +12,13 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IPS.Usuario.API.Migrations
 {
     [DbContext(typeof(UsuarioContext))]
-    partial class UsuarioContextModelSnapshot : ModelSnapshot
+    [Migration("20230909023208_ChangeTypeNumberMigration")]
+    partial class ChangeTypeNumberMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasDefaultSchema("public")
                 .HasAnnotation("ProductVersion", "6.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
@@ -42,7 +43,7 @@ namespace IPS.Usuario.API.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Usuarios", "public");
+                    b.ToTable("Usuarios");
                 });
 #pragma warning restore 612, 618
         }

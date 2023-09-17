@@ -6,11 +6,11 @@ namespace IPS.Usuario.API.Models
     public class UsuarioLogado : Entity
     {
         public string UserName { get; set; }
-        public int Celular { get; set; }
+        public string Celular { get; set; }
         public DateTime DataAniversario { get; set; }
 
 
-        public UsuarioLogado(Guid id, string userName, int celular, DateTime dtAniversario)
+        public UsuarioLogado(Guid id, string userName, string celular, DateTime dtAniversario)
         {
             Id = id;
             UserName = userName;
@@ -18,7 +18,7 @@ namespace IPS.Usuario.API.Models
             DataAniversario = dtAniversario;
         }
 
-        public bool AtualizarCelular(int celular)
+        public bool AtualizarCelular(string celular)
         {
             Celular = celular;
             //Validar (estrutura e em seguida envia codigo para celular)
