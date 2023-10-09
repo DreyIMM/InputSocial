@@ -6,11 +6,12 @@ import { DisplayMessage, GenericValidator, ValidationMessages } from 'src/app/Sh
 import { LoginService } from 'src/app/Shared/services/login.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+  selector: 'app-cadastro',
+  templateUrl: './cadastro.component.html',
+  styleUrls: ['./cadastro.component.css']
 })
-export class LoginComponent implements OnInit, AfterViewInit{
+export class CadastroComponent implements OnInit, AfterViewInit {
+
 
   @ViewChildren(FormControlName,{ read: ElementRef}) formInputElements: ElementRef[];
 

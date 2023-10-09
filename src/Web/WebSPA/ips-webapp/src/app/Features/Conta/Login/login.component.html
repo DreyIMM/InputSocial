@@ -1,0 +1,54 @@
+
+<!------ Include the above in your HEAD tag ---------->
+
+<div class="container-fluid register">
+    <div class="row">
+        <div class="col-md-6 register-left">
+            <img class="logo" src="./assets/ipslogo.png" alt="" />
+    
+        </div>
+
+        <div class="col-md-6 register-right">
+            <div class="tab-content" id="myTabContent">
+                <form novalidate (ngSubmit)="LogarConta()" [formGroup]="loginForm">
+        
+                    <div class="alert alert-danger" *ngIf="errors.length > 0">
+                        <h3 id="msgRetorno">Opa! Alguma coisa não deu certo:</h3>
+                        <ul>
+                            <li *ngFor="let error of errors">{{ error }}</li>
+                        </ul>
+                    </div>
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Login</h3>
+                        <div class="row justify-content-md-center register-form">
+                            <div class="col-md-6 ">
+        
+                                <div class="form-group">
+                                    <input class="form-control form-control-lg mt-3" id="Email" type="email" placeholder="Email" formControlName="Email" [ngClass]="{'is-invalid': displayMessage.Email}" />
+                                    <span class="text-danger" *ngIf="displayMessage.Email">
+                                                    <p [innerHTML]="displayMessage.Email"></p>
+                                    </span>
+                                </div>     
+        
+                                <div class="form-group">
+                                    <input formControlName="Senhas" type="password" class="form-control form-control-lg mt-3"  placeholder="Email"  [ngClass]="{'is-invalid': displayMessage.Senha}" />
+                                    <span class="text-danger" *ngIf="displayMessage.Senha">
+                                        <p [innerHTML]="displayMessage.Senha"></p>
+                                    </span>
+                                </div>
+                                
+                                <div class="d-grid gap-2 form-group">
+                                    <button id="Login" type="submit" value="Login" class="btnLogin btn btn-primary btn-lg mt-3"  [disabled]="!loginForm.valid">Registrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+        
+            </div>
+        </div>
+
+
+        <!-- Irá ser colocado outro component para chamar o cadastro-->
+    </div>
+</div>
