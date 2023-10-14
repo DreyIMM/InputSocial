@@ -15,7 +15,7 @@ namespace IPS.Feed.API.Migrations
                 {
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IdUsuario = table.Column<Guid>(type: "uuid", nullable: false),
-                    DataPostagems = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    DataPostagems = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Modificado = table.Column<bool>(type: "boolean", nullable: false),
                     Mensagem = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false)
                 },
@@ -32,7 +32,7 @@ namespace IPS.Feed.API.Migrations
                     IdUsuario = table.Column<Guid>(type: "uuid", nullable: false),
                     IdPostagem = table.Column<Guid>(type: "uuid", nullable: false),
                     Mensagem = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
-                    Data = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    Data = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,7 @@ namespace IPS.Feed.API.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     IdUsuario = table.Column<Guid>(type: "uuid", nullable: false),
                     IdPostagem = table.Column<Guid>(type: "uuid", nullable: false),
-                    DataCurtida = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                    DataCurtida = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
                 },
                 constraints: table =>
                 {

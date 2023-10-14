@@ -26,7 +26,7 @@ namespace IPS.Feed.API.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("Data")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("IdPostagem")
                         .HasColumnType("uuid");
@@ -53,7 +53,7 @@ namespace IPS.Feed.API.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("DataCurtida")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("IdPostagem")
                         .HasColumnType("uuid");
@@ -75,7 +75,7 @@ namespace IPS.Feed.API.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<DateTime>("DataPostagems")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<Guid>("IdUsuario")
                         .HasColumnType("uuid");
