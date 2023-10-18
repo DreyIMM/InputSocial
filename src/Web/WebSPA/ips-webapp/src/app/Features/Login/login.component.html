@@ -1,9 +1,11 @@
 <div class="container-fluid contentform">
+   
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
-
-			<div class="signup pt-5">
-                <label for="chk" aria-hidden="true">Cadastra-se</label>
+            <div class="signup pt-5">
+                <div  class="logo text-center">
+                    <img class="m-5 logo" src="./assets/ipslogo.png" alt="" />
+                </div>
 				<form>
                     <div class="form-group">
                         <input name="txt" [(ngModel)]="signupObj.UserName" class="form-control form-control-lg mt-3" id="UserName" type="text" placeholder="Usuario" />
