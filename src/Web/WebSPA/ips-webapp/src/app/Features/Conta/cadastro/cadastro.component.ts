@@ -7,8 +7,7 @@ import { LoginService } from 'src/app/Shared/services/login.service';
 
 @Component({
   selector: 'app-cadastro',
-  templateUrl: './cadastro.component.html',
-  styleUrls: ['./cadastro.component.css']
+  templateUrl: './cadastro.component.html'
 })
 export class CadastroComponent implements OnInit, AfterViewInit {
 
@@ -73,8 +72,6 @@ export class CadastroComponent implements OnInit, AfterViewInit {
       Senha: ['', [Validators.required]],
       SenhaConfirmacao: ['', [Validators.required]],
     });
-    debugger
-    console.log(this.cadastroForm.hasError)
   }
 
 

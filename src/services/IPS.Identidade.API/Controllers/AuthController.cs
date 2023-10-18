@@ -72,7 +72,7 @@ namespace IPS.Identidade.API.Controllers
         }
 
         [HttpPost("autenticar")]
-        public async Task<ActionResult> Login(UsuarioLogin usuarioLogin)
+        public async Task<ActionResult> Login([FromBody] UsuarioLogin usuarioLogin)
         {
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);

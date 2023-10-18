@@ -1,21 +1,47 @@
 export class Usuario {
 
     constructor(
-        public UserName: string,
-        public Celular :string,
-        public Nascimento :string,
-        public Email: string,
-        public Senha: string,
-        public SenhaConfirmar: string
     ){}
+
+    
+    public UserName: string;
+    public Celular :string;
+    public Nascimento :string;
+    public Email: string;
+    public Senha: string;
+    public SenhaConfirmacao: string;
 
 }
 
 export class UsuarioLogin{
+    constructor(){}
 
+    public Email: string;
+    public Senha: string;
+    
+
+}
+
+
+export class UsuarioRespostaLogin{
     constructor(
-        public Email: string,
-        public senha: string,
+        public AcessToken : string,
+        public ExpiresIn  : number,
+        public UsuarioToken : UsuarioToken
     ){}
+}
 
+export class UsuarioToken{
+    constructor(
+        public Id : string,
+        public Email : string,
+        public Claims: Array<UsuarioClaim> = []
+    ){}
+}
+
+export class UsuarioClaim{
+    constructor(
+        public Value: string,
+        public Type : string,
+    ){}
 }
