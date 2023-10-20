@@ -47,6 +47,10 @@ input{
 	outline: none;
 	border-radius: 5px;
 }
+input[type=file]{
+	height: 70px !important; 
+	background: hwb(0 100% 0% / 0) !important;
+}
 button{
 	width: 60%;
 	height: 40px;

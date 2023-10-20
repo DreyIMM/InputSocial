@@ -15,22 +15,10 @@ export class LoginComponent implements OnInit{
 
   
 
-  signupObj: Usuario = { 
-    UserName: '',
-    Celular: '',
-    Nascimento  : '',
-    Email : '',
-    Senha : '',
-    SenhaConfirmacao : ''
-  }
+  signupObj: Usuario = new Usuario()
 
   login : UsuarioLogin =  new UsuarioLogin();
 
-  loginObj: any = {
-    Email : '',
-    Senha: '',
-  };
-   
   ngOnInit(): void {
    
   } 
@@ -47,9 +35,6 @@ export class LoginComponent implements OnInit{
   }
 
   onLogin(){
-    
-    this.login.Email = this.loginObj.Email;
-    this.login.Senha = this.loginObj.Senha;
 
     this.loginService.loginUsuario(this.login)
     .subscribe({

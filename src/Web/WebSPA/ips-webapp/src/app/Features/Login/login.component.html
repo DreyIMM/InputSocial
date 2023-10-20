@@ -3,12 +3,12 @@
 	<div class="main">  	
 		<input type="checkbox" id="chk" aria-hidden="true">
             <div class="signup pt-5">
-                <div  class="logo text-center">
+                <div class="logo text-center">
                     <img class="m-5 logo" src="./assets/ipslogo.png" alt="" />
                 </div>
-				<form>
+				<form class="form" #registerForm="ngForm" [appMatchPassword]="['Senha', 'SenhaConfirmacao']" (ngSubmit)="registerForm.form.valid && onSignUp()" novalidate >
                     <div class="form-group">
-                        <input name="txt" [(ngModel)]="signupObj.UserName" class="form-control form-control-lg mt-3" id="UserName" type="text" placeholder="Usuario" />
+                        <input name="txt" [(ngModel)]="signupObj.UserName" class="form-control form-control-lg mt-3" id="UserName" type="text" placeholder="Usuario" required />
                     </div>     
 
                     <div class="form-group">
@@ -24,29 +24,38 @@
                         <input name="email" [(ngModel)]="signupObj.Email" type="email" class="form-control form-control-lg mt-3" placeholder="Email" />
                         
                     </div>
+
                     <div class="form-group">
-                        <input name="psw" [(ngModel)]="signupObj.Senha" type="password" class="form-control form-control-lg mt-3" placeholder="Senha" />
-                        
+                        <input name="senha" [(ngModel)]="signupObj.senha" type="password" class="form-control form-control-lg mt-3" #senha="ngModel" placeholder="Senha" required/>
                     </div>
+                    <span class="text-danger text-center" *ngIf="(senha.touched || registerForm.submitted) && senha.errors?.required">
+                            Senha é obrigatoria
+                    </span>
+
                     <div class="form-group">
-                        <input name="psw" [(ngModel)]="signupObj.SenhaConfirmacao" type="password" class="form-control form-control-lg mt-3" placeholder="Confirme a Senha"  />
-                        
+                        <input name="senhaConfirmacao" [(ngModel)]="signupObj.senhaConfirmacao" type="password" class="form-control form-control-lg mt-3" #senhaConfirmacao="ngModel" placeholder="Confirme a Senha" required />    
                     </div>
+                    <span class="text-danger" *ngIf="senhaConfirmacao.touched && senhaConfirmacao.errors?.passwordMismatch.any">
+                        As senhas não coincidem
+                    </span>
+                    <span class="text-danger " *ngIf="(senhaConfirmacao.touched || registerForm.submitted) && senhaConfirmacao.errors?.required">
+                        A senha de confirmação é obrigatoria
+                    </span>
+
                     <div class="d-grid gap-2 form-group">
-                        <button (click)="onSignUp()" class="btnLogin btn btn-primary btn-lg mt-3" >Registra</button>
+                        <button type="submit" class="btnLogin btn btn-primary btn-lg mt-3" >Registra</button>
                     </div>
 				</form>
 			</div>
-            loginObj
 			<div class="login">
 				<form>
 					<label for="chk" aria-hidden="true">Login</label>
                     <div class="form-group">
-                        <input [(ngModel)]="loginObj.Email" name="email" type="email" class="form-control form-control-lg mt-3"  placeholder="Email"  />
+                        <input [(ngModel)]="login.Email" name="email" type="email" class="form-control form-control-lg mt-3"  placeholder="Email"  />
                         
                     </div>
 					<div class="form-group">
-                        <input [(ngModel)]="loginObj.Senha"  name="psw" type="password" class="form-control form-control-lg mt-3" placeholder="Senha"  />
+                        <input [(ngModel)]="login.Senha"  name="psw" type="password" class="form-control form-control-lg mt-3" placeholder="Senha"  />
                        
                     </div>
                     <div class="d-grid gap-2 form-group">

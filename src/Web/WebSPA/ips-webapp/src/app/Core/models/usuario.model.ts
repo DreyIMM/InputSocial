@@ -8,8 +8,8 @@ export class Usuario {
     public Celular :string;
     public Nascimento :string;
     public Email: string;
-    public Senha: string;
-    public SenhaConfirmacao: string;
+    public senha: string;
+    public senhaConfirmacao: string;
 
 }
 
