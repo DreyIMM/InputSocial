@@ -1,0 +1,12 @@
+
+
+#flipkart-navbar {
+    background-color: #006986cc;
+    color: #FFFFFF;
+}
+
+@media (min-width: 990px) {
+    input[type=search]{
+            width: 25REM;
+    }
+}
