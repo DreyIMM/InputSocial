@@ -14,6 +14,10 @@ import { NavbarComponent } from './Features/Navbar/navbar.component';
 import { FeedComponent } from './Features/feed/feed.component';
 import { AppComponent } from './Features/app.component';
 import { AppRoutingModule } from './app-routing-module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
 
 @NgModule({
   declarations: [
@@ -24,7 +28,7 @@ import { AppRoutingModule } from './app-routing-module';
     FeedComponent,
     SidebarComponent,
     FooterComponent,
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +36,11 @@ import { AppRoutingModule } from './app-routing-module';
     RouterModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatButtonModule,
+    MatListModule,
   ],
   providers: [
     LoginService
