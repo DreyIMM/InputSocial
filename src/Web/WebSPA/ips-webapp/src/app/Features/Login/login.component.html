@@ -1,5 +1,13 @@
 <div class="container-fluid contentform">
-	<div class="main">  	
+	<div class="main">
+        
+        <div class="alert alert-danger" *ngIf="errors.length > 0">
+            <h3 id="msgRetorno">Alguma coisa não deu certo</h3>
+            <ul>
+                <li *ngFor="let error of errors">{{error}}</li>
+            </ul>
+        </div>
+
 		<input type="checkbox" id="chk" aria-hidden="true">
             <div class="signup pt-5">
                 <div class="logo text-center">

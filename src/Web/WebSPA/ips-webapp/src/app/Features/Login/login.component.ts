@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Usuario, UsuarioLogin, UsuarioRespostaLogin } from 'src/app/Core/models/usuario.model';
 import { LoginService } from 'src/app/Shared/services/login.service';
 @Component({
@@ -8,15 +9,10 @@ import { LoginService } from 'src/app/Shared/services/login.service';
 })
 export class LoginComponent implements OnInit{
   
-  constructor ( 
-     private loginService : LoginService
-    
-     ){}
-
+  constructor (private loginService : LoginService, private router: Router){}
   
-
+  errors : any[] = [];
   signupObj: Usuario = new Usuario()
-
   login : UsuarioLogin =  new UsuarioLogin();
 
   ngOnInit(): void {
@@ -24,11 +20,10 @@ export class LoginComponent implements OnInit{
   } 
 
   onSignUp(){
-    debugger
     this.loginService.registrarUsuario(this.signupObj)
     .subscribe({
       next: (v) => this.processarSucesso(v),
-      error: (e) => this.processarFalha,
+      error: (e) => this.processarFalha(e),
       complete: () => console.info('complete')
     }); 
 
@@ -39,7 +34,7 @@ export class LoginComponent implements OnInit{
     this.loginService.loginUsuario(this.login)
     .subscribe({
       next: (v) => this.processarSucesso(v),
-      error: (e) => this.processarFalha,
+      error: (e) => this.processarFalha(e),
       complete: () => console.info('complete') 
   })
     
@@ -47,11 +42,15 @@ export class LoginComponent implements OnInit{
   }
 
   processarSucesso(response : any){
+      this.errors = [];
 
+      //armazenando o token, ou seja, o usuario está logado
+      this.loginService.LocalStorage.salvarDadosLocaisUsuario(response);
+      this.router.navigate(['/feed'])
   }
 
-  processarFalha(response : any){
-    
+  processarFalha(fail : any){
+      this.errors = fail.error.errors.Mensagens;
   }
   
 
