@@ -15,7 +15,7 @@ export class LocalStorageUtils {
     }
 
     public obterTokenUsuario(): string {
-        return localStorage.getItem('ips.token') || '{}';
+        return localStorage.getItem('ips.token') || '';
     }
 
     public salvarTokenUsuario(token: string) {

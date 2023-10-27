@@ -18,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import { NotFoundComponent } from './Features/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import {MatListModule} from '@angular/material/list';
     SidebarComponent,
     FooterComponent,
     AppComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
