@@ -1,13 +1,14 @@
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http"
 import { throwError } from "rxjs"
 import { LocalStorageUtils } from "src/app/Core/models/localstorage"
+import { environment } from "src/environments/environment";
 
 
 
 export abstract class BaseService {
 
     public LocalStorage = new LocalStorageUtils();
-    protected UrServiceV1: string = 'https://localhost:44378/api/identidade/'
+    protected UrServiceV1: string = environment.apiUrlAuth
 
     protected ObterHeaderJson(){
         return {
@@ -15,6 +16,15 @@ export abstract class BaseService {
                 'Content-Type': 'application/json',
             })
         }
+    }
+
+    protected ObterAuthHeaderJson() {
+        return {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.LocalStorage.obterTokenUsuario()}`
+            })
+        };
     }
 
     protected extractData (response : any){
