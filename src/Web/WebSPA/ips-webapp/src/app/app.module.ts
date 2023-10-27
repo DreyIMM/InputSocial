@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
 import { NotFoundComponent } from './Features/not-found/not-found.component';
+import {MatIconModule} from '@angular/material/icon';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { NotFoundComponent } from './Features/not-found/not-found.component';
     MatCardModule,
     MatButtonModule,
     MatListModule,
+    MatMenuModule,
+    MatIconModule
   ],
   providers: [
     LoginService

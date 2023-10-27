@@ -11,9 +11,7 @@
       </form>
 
       <div class="dropdown text-end">
-        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-          <img src="https://github.com/mdo.png" alt="mdo" width="32" height="32" class="rounded-circle">
-        </a>
+        
         <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1" style="">
           <li><a class="dropdown-item" href="#">New project...</a></li>
           <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -22,6 +20,27 @@
           <li><a class="dropdown-item" href="#">Sign out</a></li>
         </ul>
       </div>
+
+      
+      <button mat-mini-fab [matMenuTriggerFor]="menu" color="primary" aria-label="Example icon button with a menu icon">
+        <mat-icon>home</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>chat</mat-icon>
+          <span>Converas</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+
+
     </div>
   </div>
 </header>
