@@ -26,7 +26,7 @@ namespace IPS.Feed.Domain.Models
         {
             Modificado = modificado;
             Mensagem = mensagem;
-            DataPostagems = DateTime.Now.ToUniversalTime();
+            DataPostagems = DateTime.Now;
         }
 
         internal bool EhValido()

@@ -33,7 +33,7 @@ namespace IPS.Identidade.API.Controllers
         }
 
         [HttpPost("nova-conta")]
-        public async Task<ActionResult> Registrar([FromBody] UsuarioRegistro usuarioRegistro)
+        public async Task<ActionResult> Registrar(UsuarioRegistro usuarioRegistro)
         {
 
             if (!ModelState.IsValid) return CustomResponse(ModelState);
@@ -98,9 +98,16 @@ namespace IPS.Identidade.API.Controllers
         //Integração (Envio da mensagem)
         private async Task<ResponseMessage> RegistrarUsuario(UsuarioRegistro usuarioRegistro)
         {
-            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
 
-            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(Guid.Parse(usuario.Id), usuarioRegistro.UserName, usuarioRegistro.Celular,  usuarioRegistro.Nascimento.ToDateTime());
+            var usuario = await _userManager.FindByEmailAsync(usuarioRegistro.Email);
+            var fotoEmBytes = new byte[] {};
+            var extensioFile = "";
+            if (!(usuarioRegistro.fotoPerfil  is null))
+            {
+                 fotoEmBytes = await ConvertToByts(usuarioRegistro.fotoPerfil);
+                 extensioFile = Path.GetExtension(usuarioRegistro.fotoPerfil.FileName);
+            }
+            var usuarioRegistrado = new UsuarioRegistradoIntegrationEvent(Guid.Parse(usuario.Id), usuarioRegistro.UserName, usuarioRegistro.Celular,  usuarioRegistro.Nascimento.ToDateTime(), fotoEmBytes, extensioFile);
 
             try
             {
@@ -114,6 +121,16 @@ namespace IPS.Identidade.API.Controllers
 
         }
 
+        private async Task<byte[]> ConvertToByts(IFormFile formFile)
+        {
+            byte[] fileInByts;
+            using(var memoryStream = new MemoryStream())
+            {
+                await formFile.CopyToAsync(memoryStream);
+                fileInByts = memoryStream.ToArray();    
+            }
+            return fileInByts;
+        }
 
         private async Task<UsuarioRespostaLogin> GerarJwt(string email)
         {
