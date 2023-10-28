@@ -9,7 +9,7 @@ export abstract class BaseService {
 
     public LocalStorage = new LocalStorageUtils();
     protected UrServiceV1: string = environment.apiUrlAuth
-
+    protected UrServiceFeed: string = environment.apiUrlFeed
     protected ObterHeaderJson(){
         return {
             headers: new HttpHeaders({

@@ -25,6 +25,15 @@ namespace IPS.Feed.API.Configuration
                  options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
              });
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Development",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+            });
+
             return services;
         }
 
@@ -39,6 +48,8 @@ namespace IPS.Feed.API.Configuration
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("Development");
 
             app.UseAuthConfiguration();
 

@@ -21,6 +21,8 @@ import {MatListModule} from '@angular/material/list';
 import { NotFoundComponent } from './Features/not-found/not-found.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
+import { PostListComponent } from './Features/post/post-list/post-list.component';
+import { PostAddComponent } from './Features/post/post-add/post-add.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +35,8 @@ import {MatMenuModule} from '@angular/material/menu';
     FooterComponent,
     AppComponent,
     NotFoundComponent,
+    PostListComponent,
+    PostAddComponent,
   ],
   imports: [
     BrowserModule,

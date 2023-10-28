@@ -44,7 +44,7 @@ namespace IPS.Feed.API.Controllers
         [ProducesResponseType(typeof(PostagensDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IEnumerable<PostagensDTO>> ObterPostagens()
-        {
+        {   
             var result = await _postagemRepository.ObterTodasPostagem();
 
             return result.ToPostListDTO(); 
