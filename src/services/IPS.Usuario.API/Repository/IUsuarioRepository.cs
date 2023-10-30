@@ -10,5 +10,7 @@ namespace IPS.Usuario.API.Repository
 
         Task<bool> ExisteCelular(string celular);
 
+        string ObterUsuario(Guid idUsuario);
+
     }
 }

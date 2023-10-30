@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map } from 'rxjs';
 import { Usuario, UsuarioLogin } from 'src/app/Core/models/usuario.model';
@@ -15,7 +15,7 @@ export class LoginService  extends BaseService {
 
   registrarUsuario(usuarioRegistro: Usuario) : Observable<Usuario>{
       let response = this.http
-      .post(this.UrServiceV1+ 'nova-conta', usuarioRegistro, this.ObterHeaderJson())
+      .post(this.UrServiceV1+ 'identidade/nova-conta', usuarioRegistro, this.ObterHeaderJson())
       .pipe(
         map(this.extractData),
         catchError(this.serviceError));
@@ -25,12 +25,24 @@ export class LoginService  extends BaseService {
 
   loginUsuario(usuarioLogin: UsuarioLogin) : Observable<UsuarioLogin>{
         let response = this.http
-        .post(this.UrServiceV1+ 'autenticar', usuarioLogin, this.ObterHeaderJson())
+        .post(this.UrServiceV1+ 'identidade/autenticar', usuarioLogin, this.ObterHeaderJson())
         .pipe(
             map(this.extractData),
             catchError(this.serviceError));
 
         return response;
+  }
+
+  NomeUsuario(idGuid: string) : Observable<String>{
+
+    const options = idGuid ? { params: new HttpParams().append('idUsuario', idGuid) } : {};
+    let response = this.http
+    .get<string>(this.UrServiceUsuario+ 'usuario/nomeusuario', options)
+    .pipe(
+        map(this.extractData),
+        catchError(this.serviceError));
+
+    return response;
   }
 
 }

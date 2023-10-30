@@ -81,6 +81,14 @@ namespace IPS.Usuario.API.Repository
             return validationResult;
         }
 
+
+        //Repository - buscar nome do usuario
+        
+        public string ObterUsuario(Guid idUsuario)
+        {
+            return _context.Usuarios.AsNoTracking().Where(p => p.Id == idUsuario).Select(p => p.UserName).FirstOrDefault().ToString();
+        }
+
         public async Task<int> SaveChanges()
         {
             return  _context.SaveChanges();

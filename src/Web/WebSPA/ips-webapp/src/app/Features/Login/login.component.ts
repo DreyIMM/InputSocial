@@ -43,14 +43,28 @@ export class LoginComponent implements OnInit{
 
   processarSucesso(response : any){
       this.errors = [];
-
-      //armazenando o token, ou seja, o usuario está logado
+      
       this.loginService.LocalStorage.salvarDadosLocaisUsuario(response);
+
+      let usuario = this.loginService.LocalStorage.obterUsuario();
+
+      this.ArmarzenarUsuario(usuario);
+
       this.router.navigate(['/feed'])
   }
 
   processarFalha(fail : any){
       this.errors = fail.error.errors.Mensagens;
+  }
+
+
+  ArmarzenarUsuario(result: any){
+    this.loginService.NomeUsuario(result.id).subscribe({
+      next: (v) => console.log(this.loginService.LocalStorage.salvaNomeUsuaio(v)),
+      error: (e) => console.log(e),
+      complete: () => console.info('complete') 
+    });
+
   }
   
 
