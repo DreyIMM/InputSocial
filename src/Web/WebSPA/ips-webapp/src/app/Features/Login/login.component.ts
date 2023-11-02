@@ -46,28 +46,11 @@ export class LoginComponent implements OnInit{
       
       this.loginService.LocalStorage.salvarDadosLocaisUsuario(response);
 
-      let usuario = this.loginService.LocalStorage.obterUsuario();
-
-      this.ArmarzenarUsuario(usuario);
-
       this.router.navigate(['/feed'])
 
-      this.loginService.obterFoto();
   }
 
   processarFalha(fail : any){
       this.errors = fail.error.errors.Mensagens;
   }
-
-
-  ArmarzenarUsuario(result: any){
-    this.loginService.NomeUsuario(result.id).subscribe({
-      next: (v) => console.log(this.loginService.LocalStorage.salvaNomeUsuaio(v)),
-      error: (e) => console.log(e),
-      complete: () => console.info('complete') 
-    });
-
-  }
-  
-
 }

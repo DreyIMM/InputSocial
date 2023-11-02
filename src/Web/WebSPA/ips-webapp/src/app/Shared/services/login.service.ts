@@ -33,16 +33,6 @@ export class LoginService  extends BaseService {
         return response;
   }
 
-  NomeUsuario(idGuid: string) : Observable<String>{
 
-    const options = idGuid ? { params: new HttpParams().append('idUsuario', idGuid) } : {};
-    let response = this.http
-    .get<string>(this.UrServiceUsuario+ 'usuario/nomeusuario', options)
-    .pipe(
-        map(this.extractData),
-        catchError(this.serviceError));
-
-    return response;
-  }
 
 }
