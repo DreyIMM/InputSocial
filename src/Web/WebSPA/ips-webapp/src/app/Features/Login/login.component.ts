@@ -51,6 +51,8 @@ export class LoginComponent implements OnInit{
       this.ArmarzenarUsuario(usuario);
 
       this.router.navigate(['/feed'])
+
+      this.loginService.obterFoto();
   }
 
   processarFalha(fail : any){

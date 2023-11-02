@@ -8,8 +8,11 @@ import { LocalStorageUtils } from 'src/app/Core/models/localstorage';
 })
 export class FeedComponent implements OnInit{
   
+
+
   ngOnInit(): void {
     this.usuarioLogado();
+    
   }
 
   nome: string = "";
@@ -25,8 +28,7 @@ export class FeedComponent implements OnInit{
   }
 
   buscarFotoUsuarioLogado() :string{
-
-
+    
     console.log(this.localStorageUtils.obterUsuario().id)
     return "a";
   }

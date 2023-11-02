@@ -9,6 +9,7 @@ export class LocalStorageUtils {
     public limparDadosLocaisUsuario() {
         localStorage.removeItem('ips.token');
         localStorage.removeItem('ips.user');
+        localStorage.removeItem('ips.usuario');
     }
 
     public obterTokenUsuario(): string {
