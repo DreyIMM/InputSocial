@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using IPS.Feed.Infra.Data;
 using Npgsql;
+using Microsoft.Extensions.Configuration;
 
 namespace IPS.Feed.API.Configuration
 {
@@ -13,6 +14,9 @@ namespace IPS.Feed.API.Configuration
         public static IServiceCollection AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+            services.Configure<AppSettings>(configuration);
+
 
             services.AddDbContext<FeedContext>(options =>
               options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));

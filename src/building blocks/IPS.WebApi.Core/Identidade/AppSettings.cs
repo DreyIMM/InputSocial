@@ -13,6 +13,7 @@ namespace IPS.WebApi.Core.Identidade
         public string Emissor { get; set; }
         public string ValidoEm { get; set; }
         public string ConnectionString { get; set; }
+        public string ApiUrlUsuario { get; set; }
 
     }
 }

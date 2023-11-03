@@ -17,6 +17,7 @@ namespace IPS.Feed.API.Extensions
                 Modificado      = postagem.Modificado,
                 Mensagem        = postagem.Mensagem,
                 TotalCurtidas   = postagem.Curtidas.Count(),
+                NomeUsuario     = postagem.NomeUsuario,
             };
         }
 

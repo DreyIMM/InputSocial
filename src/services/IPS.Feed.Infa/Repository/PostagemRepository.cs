@@ -7,11 +7,26 @@ namespace IPS.Feed.Infra.Repository
 {
     public class PostagemRepository : Repository<Postagem>, IPostagemRepository
     {
-        public PostagemRepository(FeedContext context) : base(context) { }
+
+        private readonly IUsuarioService _usuarioService;
+
+        public PostagemRepository(FeedContext context, IUsuarioService usuarioserivce ) : base(context)
+        {
+            _usuarioService = usuarioserivce;
+        }
 
         public async Task<List<Postagem>> ObterTodasPostagem()
         {
-            return await Db.Postagem.AsNoTracking().Include(p => p.Curtidas).ToListAsync();
+            List<Postagem> result = await Db.Postagem.AsNoTracking().Include(p => p.Curtidas).ToListAsync();
+
+            
+            foreach(var postagem in result)
+            {
+                Guid idUsuario = Guid.Parse(postagem.IdUsuario.ToString());
+                postagem.NomeUsuario = await _usuarioService.ObterNomeUsuario(idUsuario);
+            }
+
+            return result;
         }
 
         public async Task<Postagem> ObterDetalhePostagem(Guid Idpostagem)

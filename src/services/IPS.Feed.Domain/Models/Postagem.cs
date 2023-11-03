@@ -1,5 +1,6 @@
 ﻿using IPS.Core.DomainObjects;
 using IPS.Feed.Domain.Models.Validations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IPS.Feed.Domain.Models
 {
@@ -9,6 +10,8 @@ namespace IPS.Feed.Domain.Models
         public DateTime DataPostagems { get; set; } 
         public bool Modificado { get; set; }
         public string Mensagem { get; set; } = string.Empty;
+        [NotMapped]
+        public string NomeUsuario { get; set; } = string.Empty;
 
         //EF
         public IEnumerable<Comentario> Comentarios { get; set; } = new List<Comentario>();

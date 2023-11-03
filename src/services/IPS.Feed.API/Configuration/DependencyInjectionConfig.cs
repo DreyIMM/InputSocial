@@ -19,6 +19,7 @@ namespace IPS.Feed.API.Configuration
             services.AddScoped<IComentarioService, ComentarioService>();
             services.AddScoped<ICurtidaRepository, CurtidaRepository>();
             services.AddScoped<ICurtidaService, CurtidaService>();
+            services.AddHttpClient<IUsuarioService, UsuarioService>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IAspNetUser, AspNetUser>();
