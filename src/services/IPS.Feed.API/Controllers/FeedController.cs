@@ -34,9 +34,8 @@ namespace IPS.Feed.API.Controllers
         public async Task<ActionResult<PostagemAddDTO>> PostagemAdd([FromBody] PostagemAddDTO postDTO)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-            Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem);
+            Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem, postDTO.Latitude, postDTO.Longitude, postDTO.Bairro, postDTO.Regiao); //refazer isso para
             await _postagemService.Adicionar(post);
-
             return Ok(postDTO);
         }
 

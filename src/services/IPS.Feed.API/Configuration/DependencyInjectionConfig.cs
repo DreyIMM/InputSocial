@@ -2,7 +2,7 @@
 using IPS.Feed.Domain.Interfaces;
 using IPS.Feed.Domain.Services;
 using IPS.Feed.Infa.Repository;
-using IPS.Feed.Infra.Data;
+using IPS.Feed.Infra;
 using IPS.Feed.Infra.Repository;
 using IPS.WebApi.Core.Usuario;
 

@@ -1,13 +1,8 @@
 ﻿using IPS.Feed.Domain.Interfaces;
 using IPS.Feed.Domain.Models;
-using IPS.Feed.Infra.Data;
+using IPS.Feed.Infra;
 using IPS.Feed.Infra.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace IPS.Feed.Infa.Repository
 {

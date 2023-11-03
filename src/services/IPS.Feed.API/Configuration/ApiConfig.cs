@@ -2,9 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using IPS.Feed.Infra.Data;
-using Npgsql;
-using Microsoft.Extensions.Configuration;
+using IPS.Feed.Infra;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Internal;
 
 namespace IPS.Feed.API.Configuration
 {
@@ -16,11 +15,6 @@ namespace IPS.Feed.API.Configuration
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
             services.Configure<AppSettings>(configuration);
-
-
-            services.AddDbContext<FeedContext>(options =>
-              options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-
 
             services.AddControllers()
              .AddJsonOptions(options =>

@@ -1,4 +1,4 @@
-﻿using IPS.Feed.Infra.Data;
+﻿using IPS.Feed.Infra;
 using IPS.Feed.Domain.Interfaces;
 using IPS.Feed.Domain.Models;
 using Microsoft.EntityFrameworkCore;
