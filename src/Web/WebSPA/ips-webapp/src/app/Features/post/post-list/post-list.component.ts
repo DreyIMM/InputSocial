@@ -10,16 +10,25 @@ export class PostListComponent implements OnInit{
   
   constructor(private postService: PostService) { }
 
-  public postagens: Postagens[];
+  public postagens: Postagens[] = [new Postagens()];
 
   ngOnInit(): void {
-    
-    this.postService.ListagemPostagens().
-    subscribe(
-      post => this.postagens = post,
-      error => console.log(error));
+    this.ObterPostagens();
   }
 
-
+  public ObterPostagens(): void {
+    this.postService.ListagemPostagens().subscribe({
+      next: (v) => {
+        this.postagens = v;
+        console.log(this.postagens); 
+      },
+      error: (e) => {
+        console.log(e);
+      },
+      complete: () => {
+        console.info('complete');
+      },
+    });
+  }
 
 }

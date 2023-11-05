@@ -7,11 +7,13 @@ export class Postagens{
  
     constructor(){}
 
-    public Id: GUID;
-    public IdUsuario: GUID;
-    public DataPostagem: Date;
-    public Modificado: Boolean;
-    public Mensagem: string;
-    public TotalCurtidas: number;
-
+    public nomeUsuario:string;
+    public id: GUID;
+    public idUsuario: GUID;
+    public dataPostagem: Date;
+    public modificado: Boolean;
+    public mensagem: string;
+    public totalCurtidas: number;
+    public bairro : string;
+    public regiao : string;
 }

@@ -13,6 +13,8 @@ namespace IPS.Feed.API.DTO
         public string Mensagem { get; set; }
         public int TotalCurtidas { get; set; }
         public string NomeUsuario { get; set; }
+        public string Regiao { get; set; }
+        public string Bairro { get; set; }
     }
 
     public record PostagemDTO

@@ -30,7 +30,6 @@ export class SidebarComponent implements OnInit {
     this.sideBarService.NomeUsuario(result.id)
       .subscribe(
         (v) => {
-          console.log("resultado do subscribe", v);
           this.sideBarService.LocalStorage.salvaNomeUsuaio(v);
           this.nome = this.localStorageUtils.obterNome();
         },

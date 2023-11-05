@@ -1,18 +1,24 @@
-<mat-card class="example-card mt-4">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>    
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
+
+<div class="lista-posts" *ngFor="let postagem of postagens">  
+  <mat-card class="example-card mt-4">
+      <mat-card-header>
+        <span [hidden]="true"> {{postagem.id}}</span>
+        <mat-card-title>{{postagem.nomeUsuario}}</mat-card-title>
+        <mat-card-subtitle>{{postagem.bairro}} - {{postagem.regiao}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{postagem.mensagem}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-icon-button color="warn"> 
+          <mat-icon>favorite</mat-icon>
+        </button>    
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+      <button class="config" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon>more_vert</mat-icon>
+      </button>
   </mat-card>
+</div>

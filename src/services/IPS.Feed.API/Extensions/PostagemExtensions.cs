@@ -18,6 +18,8 @@ namespace IPS.Feed.API.Extensions
                 Mensagem        = postagem.Mensagem,
                 TotalCurtidas   = postagem.Curtidas.Count(),
                 NomeUsuario     = postagem.NomeUsuario,
+                Regiao          = postagem.Regiao,
+                Bairro          = postagem.Bairro
             };
         }
 

@@ -23,6 +23,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import { PostListComponent } from './Features/post/post-list/post-list.component';
 import { PostAddComponent } from './Features/post/post-add/post-add.component';
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { PostAddComponent } from './Features/post/post-add/post-add.component';
     MatButtonModule,
     MatListModule,
     MatMenuModule,
-    MatIconModule
+    MatIconModule,
+    MatTabsModule
   ],
   providers: [
     LoginService

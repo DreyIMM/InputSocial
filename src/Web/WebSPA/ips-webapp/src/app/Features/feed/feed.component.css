@@ -12,3 +12,10 @@
     background-size: cover;
 }
 
+
+/* estilo do post-list */
+
+.config{
+    position: absolute;
+    left: 93%;
+}
