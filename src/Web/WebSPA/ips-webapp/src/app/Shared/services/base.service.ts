@@ -12,7 +12,8 @@ export abstract class BaseService {
     protected UrServiceV1: string = environment.apiUrlAuth
     protected UrServiceFeed: string = environment.apiUrlFeed
     protected UrServiceUsuario: string = environment.apiUrlUsuario
-
+    protected UrServiceHere: string = environment.apiHereGeo
+    
     protected app = initializeApp(environment.firebase);
     protected analytics = getAnalytics(this.app);
 
