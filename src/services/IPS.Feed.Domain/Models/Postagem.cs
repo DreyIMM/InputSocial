@@ -18,6 +18,7 @@ namespace IPS.Feed.Domain.Models
         public double Longitude { get; set; }
         public string Bairro { get; set; }
         public string Regiao { get; set; }
+        public string? EntidadesNlp { get; set; }
 
         //EF
         public IEnumerable<Comentario> Comentarios { get; set; } = new List<Comentario>();

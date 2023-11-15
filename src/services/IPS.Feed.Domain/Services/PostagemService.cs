@@ -47,5 +47,20 @@ namespace IPS.Feed.API.Services
         {
             return await _postagemRepository.PostagensUsuario(_user.ObterUserId());
         }
+
+        public async Task<bool> AtualizarPost(Guid postId, string mensagem)
+        {
+            if(string.IsNullOrWhiteSpace(mensagem)) return false;
+
+            //recuperar postagem
+            Postagem post = await _postagemRepository.ObterPorId(postId);
+
+            post.EntidadesNlp = mensagem;
+
+            await _postagemRepository.Atualizar(post);
+
+            return true;
+
+        }
     }
 }

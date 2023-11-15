@@ -8,6 +8,5 @@ namespace IPS.Feed.Domain.Interfaces
         Task<Postagem> ObterDetalhePostagem(Guid Idpostagem);
         Task<bool> PostagemUsuario(Guid IdUser, Guid IdPostagem);
         Task<List<Postagem>> PostagensUsuario(Guid IdUser);
-
     }
 }

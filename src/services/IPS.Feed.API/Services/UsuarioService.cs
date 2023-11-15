@@ -3,6 +3,11 @@ using IPS.WebApi.Core.Controllers;
 using IPS.WebApi.Core.Identidade;
 using IPS.WebApi.Core.Service;
 using Microsoft.Extensions.Options;
+using System;
+using System.Dynamic;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 
 namespace IPS.Feed.API.Services
 {
@@ -26,6 +31,22 @@ namespace IPS.Feed.API.Services
             var responseModel = DeserializarObjetoResponse<ResponseModel>(response);
 
             return responseModel.Result.Content;
+        }
+
+        public async Task<ResponseModelNLP> ProcessarMensagemNLP(string mensagem)
+        {
+            //Gambiarra
+            _httpClient.BaseAddress = new Uri("http://127.0.0.1:5000");
+
+            var reqbody = new { mensagem };
+
+            var json = ObterConteudo(reqbody);
+
+            var postReponse = await _httpClient.PostAsync("/processar_mensagem", json);
+
+            var result = await DeserializarObjetoResponse<ResponseModelNLP>(postReponse);
+
+            return result;
         }
     }
 }

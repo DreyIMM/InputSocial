@@ -19,13 +19,15 @@ namespace IPS.Feed.API.Controllers
         private readonly IComentarioService _comentarioService;
         private readonly IComentarioRepository _comentarioRepository;
         private readonly ICurtidaService _curtidaService;
-        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService)
+        private readonly IUsuarioService _usuarioService;
+        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService, IUsuarioService usuarioService)
         {
             _postagemRepository = postagemRepository;
             _postagemService = postagemService;
             _comentarioService = comentarioService;
             _comentarioRepository = comentarioRepository;
             _curtidaService = curtidaService;
+            _usuarioService = usuarioService;
         }
 
         [HttpPost("postagem")]
@@ -36,6 +38,7 @@ namespace IPS.Feed.API.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem, postDTO.Latitude, postDTO.Longitude, postDTO.Bairro, postDTO.Regiao); //refazer isso para
             await _postagemService.Adicionar(post);
+            await _usuarioService.ProcessarMensagemNLP(postDTO.Mensagem);
             return Ok(postDTO);
         }
 
@@ -120,6 +123,15 @@ namespace IPS.Feed.API.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
+        [HttpPost("postagem/nlp")]
+        public async Task<ActionResult<string>> Teste(Guid idPostagem, [FromBody] string mensagem)
+        { 
+
+            var result = await _postagemService.AtualizarPost(idPostagem, mensagem);
+
+            return Ok(result);
+        }
 
 
     }    
