@@ -11,6 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\building blocks\IPS.Core\IPS.Core.csproj" />
+    <ProjectReference Include="..\..\building blocks\IPS.MessageBus\IPS.MessageBus.csproj" />
     <ProjectReference Include="..\..\building blocks\IPS.WebApi.Core\IPS.WebApi.Core.csproj" />
     <ProjectReference Include="..\IPS.Feed.Domain\IPS.Feed.Domain.csproj" />
     <ProjectReference Include="..\IPS.Feed.Infa\IPS.Feed.Infa.csproj" />

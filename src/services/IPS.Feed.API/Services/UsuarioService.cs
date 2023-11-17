@@ -1,7 +1,9 @@
 ﻿using IPS.Feed.Domain.Interfaces;
+using IPS.Feed.Domain.Services;
 using IPS.WebApi.Core.Controllers;
 using IPS.WebApi.Core.Identidade;
 using IPS.WebApi.Core.Service;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.Dynamic;
@@ -15,12 +17,14 @@ namespace IPS.Feed.API.Services
     public class UsuarioService : BaseService, IUsuarioService
     {
         private readonly HttpClient _httpClient;
-        
+        private readonly IServiceProvider _serviceProvider;
 
-        public UsuarioService(HttpClient httpClient, IOptions<AppSettings> settings)
+
+        public UsuarioService(HttpClient httpClient, IOptions<AppSettings> settings, IServiceProvider serviceProvider)
         {
+            _serviceProvider = serviceProvider;
             _httpClient = httpClient;
-            _httpClient.BaseAddress = new Uri(settings.Value.ApiUrlUsuario);
+            _httpClient.BaseAddress = new Uri(settings.Value.ApiUrlUsuario);    
         }
 
         public async Task<string> ObterNomeUsuario(Guid idUsuario)
@@ -33,7 +37,7 @@ namespace IPS.Feed.API.Services
             return responseModel.Result.Content;
         }
 
-        public async Task<ResponseModelNLP> ProcessarMensagemNLP(string mensagem)
+        public async Task ProcessarMensagemNLP(Guid id, string mensagem)
         {
             //Gambiarra
             _httpClient.BaseAddress = new Uri("http://127.0.0.1:5000");
@@ -46,7 +50,20 @@ namespace IPS.Feed.API.Services
 
             var result = await DeserializarObjetoResponse<ResponseModelNLP>(postReponse);
 
-            return result;
+            string textps = "entidades: ";
+
+            result.entidades.ForEach(c =>
+            {
+                textps += $" ( {c.tipo} - {c.texto} )";
+            });
+
+            using (var scoped = _serviceProvider.CreateScope())
+            {
+                var service = scoped.ServiceProvider.GetRequiredService<IPostagemService>();
+
+                await service.AtualizarPost(id, textps.ToString());
+            }
+
         }
     }
 }

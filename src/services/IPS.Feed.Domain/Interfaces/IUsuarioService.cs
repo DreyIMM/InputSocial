@@ -11,6 +11,6 @@ namespace IPS.Feed.Domain.Interfaces
     {
         Task<string> ObterNomeUsuario(Guid idUsuario);
 
-        Task<ResponseModelNLP> ProcessarMensagemNLP(string mensagem);
+        Task ProcessarMensagemNLP(Guid id, string mensagem);
     }
 }

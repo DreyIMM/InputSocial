@@ -1,8 +1,10 @@
-﻿using IPS.Feed.API.DTO;
+﻿using IPS.Core.Messages;
+using IPS.Feed.API.DTO;
 using IPS.Feed.API.Extensions;
 using IPS.Feed.Domain.Interfaces;
 using IPS.Feed.Domain.Models;
 using IPS.Feed.Domain.Services;
+using IPS.MessageBus;
 using IPS.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,15 +21,16 @@ namespace IPS.Feed.API.Controllers
         private readonly IComentarioService _comentarioService;
         private readonly IComentarioRepository _comentarioRepository;
         private readonly ICurtidaService _curtidaService;
-        private readonly IUsuarioService _usuarioService;
-        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService, IUsuarioService usuarioService)
+        private readonly IMessageBus _bus;
+
+        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService, IMessageBus bus)
         {
             _postagemRepository = postagemRepository;
             _postagemService = postagemService;
             _comentarioService = comentarioService;
             _comentarioRepository = comentarioRepository;
             _curtidaService = curtidaService;
-            _usuarioService = usuarioService;
+            _bus = bus;
         }
 
         [HttpPost("postagem")]
@@ -38,7 +41,11 @@ namespace IPS.Feed.API.Controllers
             if (!ModelState.IsValid) return CustomResponse(ModelState);
             Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem, postDTO.Latitude, postDTO.Longitude, postDTO.Bairro, postDTO.Regiao); //refazer isso para
             await _postagemService.Adicionar(post);
-            await _usuarioService.ProcessarMensagemNLP(postDTO.Mensagem);
+            
+            var processarMensagem = new ProcessarPostMensagemIntegrationEvent(post.Id, post.Mensagem);
+
+            await  _bus.PublishAsync(processarMensagem);
+            
             return Ok(postDTO);
         }
 
@@ -122,17 +129,6 @@ namespace IPS.Feed.API.Controllers
 
             return Ok(result);
         }
-
-        [AllowAnonymous]
-        [HttpPost("postagem/nlp")]
-        public async Task<ActionResult<string>> Teste(Guid idPostagem, [FromBody] string mensagem)
-        { 
-
-            var result = await _postagemService.AtualizarPost(idPostagem, mensagem);
-
-            return Ok(result);
-        }
-
 
     }    
 }
