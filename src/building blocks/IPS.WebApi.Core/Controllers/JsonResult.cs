@@ -14,13 +14,9 @@ namespace IPS.WebApi.Core.Controllers
     }
     public class ResponseModelNLP
     {
-        public List<DadosNLO> entidades { get; set; }
+        public List<string> loc { get; set; }
+        public List<string> verb { get; set; }    
     }
 
-    public class DadosNLO
-    {
-        public string texto { get; set; }
-        public string tipo { get; set; }
-    }
 
 }

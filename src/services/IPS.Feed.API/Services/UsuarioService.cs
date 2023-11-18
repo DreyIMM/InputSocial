@@ -50,11 +50,11 @@ namespace IPS.Feed.API.Services
 
             var result = await DeserializarObjetoResponse<ResponseModelNLP>(postReponse);
 
-            string textps = "entidades: ";
+            string textps = "";
 
-            result.entidades.ForEach(c =>
+            result.loc.ForEach(c =>
             {
-                textps += $" ( {c.tipo} - {c.texto} )";
+                textps += $" {c}; ";
             });
 
             using (var scoped = _serviceProvider.CreateScope())

@@ -17,9 +17,12 @@ def processar_mensagem():
 
         doc = nlp(mensagem)
 
-        entidades = [{'texto': ent.text, 'tipo': ent.label_} for ent in doc.ents]
+        #entidades = [{'texto': ent.text, 'tipo': ent.label_} for ent in doc.ents]
 
-        return jsonify({'entidades': entidades})
+        verbos = [token.text for token in doc if token.pos_ == 'VERB']
+        loc =  [token.text for token in doc.ents if token.label_ == 'LOC']
+
+        return jsonify({'verb': verbos, 'loc': loc})
 
     except Exception as e:
         return jsonify({'error': str(e)}), 500
