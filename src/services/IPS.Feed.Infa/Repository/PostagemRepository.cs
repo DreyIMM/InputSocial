@@ -43,5 +43,19 @@ namespace IPS.Feed.Infra.Repository
         {
             return await Db.Postagem.AsNoTracking().Include(p => p.Curtidas).Include(p => p.Comentarios).Where(p => p.IdUsuario.Equals(IdUser)).ToListAsync();
         }
+
+        public async Task<List<string>> ObterPostagensMoments()
+        {
+            DateTime dtInicio = DateTime.Now;
+            DateTime dtFim = dtInicio.AddMinutes(-15);
+
+            return await Db.Postagem
+                    .AsNoTracking()
+                    .Where(p => p.DataPostagems <= dtInicio && p.DataPostagems >= dtFim)
+                    .Select(p => p.EntidadesNlp)
+                    .Take(5)
+                    .ToListAsync();
+        }
+
     }
 }
