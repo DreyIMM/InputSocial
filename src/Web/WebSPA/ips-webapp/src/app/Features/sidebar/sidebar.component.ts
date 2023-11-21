@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LocalStorageUtils } from 'src/app/Core/models/localstorage';
 import { SidebarService } from 'src/app/Shared/services/sidebar.service';
 
@@ -9,11 +9,10 @@ import { SidebarService } from 'src/app/Shared/services/sidebar.service';
 })
 export class SidebarComponent implements OnInit {
 
-  
   localStorageUtils = new LocalStorageUtils();
   nome: string ="";
-
-  constructor (private sideBarService : SidebarService){}
+  bairroMoments:string[] = [];
+  constructor (private sideBarService : SidebarService,  private cdr: ChangeDetectorRef){}
 
 
   ngOnInit(): void {
@@ -24,6 +23,7 @@ export class SidebarComponent implements OnInit {
       this.ArmarzenarUsuario(this.sideBarService.LocalStorage.obterUsuario())
     }
 
+    this.BairrosMoments();
   }
 
   ArmarzenarUsuario(result: any) {
@@ -37,9 +37,16 @@ export class SidebarComponent implements OnInit {
           console.error('Erro ao armazenar o nome de usuário:', e);
         }
       );
-      
-        
   }
 
+  private async BairrosMoments() {
+    const data = await this.sideBarService.obterMomentsFirebase();
+    if (Array.isArray(data)) {
+      this.bairroMoments = data.map(item => item.Nome);
+      this.cdr.detectChanges(); 
+      console.log(this.bairroMoments)
+    }else {
+      console.error('Os dados não são um array.');
+    }}
 
 }

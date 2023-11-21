@@ -1,32 +1,12 @@
-<div class="infousuario">
-    <img src="" class="rounded" id="profileLogao" alt="Usario XPTO">
-    <mat-card-title>Bem vindo</mat-card-title>
-    <mat-card-subtitle>{{nome}}</mat-card-subtitle>
-    <hr>
-  </div>
+    <div class="infousuario">
+        <img src="" class="rounded" id="profileLogao" alt="Usario XPTO">
+        <mat-card-title>Bem vindo</mat-card-title>
+        <mat-card-subtitle>{{nome}}</mat-card-subtitle>
+        <hr>
+    </div>
 
+    <li *ngFor="let bairro of bairroMoments; index as i; first as isFirst">
+        <span *ngIf="isFirst">Em alta região do </span> {{bairro}}
+    </li>
 
-  <h3 class="pt-5">Santa Cruz</h3>
-
-  <mat-list>
-    <mat-list-item>
-      <span matListItemLine>Assalto na estação de trem</span>
-      <span matListItemLine>Valor do salgado da IV</span>
-    </mat-list-item>
-   </mat-list>
-   
-  <h3>Tijuca</h3>
-  <mat-list>
-    <mat-list-item>
-      <span matListItemLine>Assalto na estação de trem</span>
-      <span matListItemLine>Valor do salgado da IV</span>
-    </mat-list-item>
-   </mat-list>
-
-  <h3>Flamengo</h3>
-  <mat-list>
-    <mat-list-item>
-      <span matListItemLine>Assalto na estação de trem</span>
-      <span matListItemLine>Valor do salgado da IV</span>
-    </mat-list-item>
-   </mat-list>
+  

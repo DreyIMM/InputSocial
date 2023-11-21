@@ -5,6 +5,7 @@ import { environment } from "src/environments/environment";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getStorage} from 'firebase/storage';
+import { getDatabase, ref } from "firebase/database";
 
 export abstract class BaseService {
 
@@ -19,7 +20,9 @@ export abstract class BaseService {
 
     protected basePath :string = '/ipsfotos'
     public storage = getStorage();
-
+    public database = getDatabase();
+    public refRealtime = ref;
+    
     protected ObterHeaderJson(){
         return {
             headers: new HttpHeaders({

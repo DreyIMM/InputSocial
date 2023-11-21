@@ -3,6 +3,8 @@ import { BaseService } from './base.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {  ref, listAll, getDownloadURL } from 'firebase/storage';
 import { Observable, catchError, map } from 'rxjs';
+import { onValue } from "firebase/database";
+
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +12,7 @@ import { Observable, catchError, map } from 'rxjs';
 export class SidebarService extends BaseService{
 
   constructor(private http: HttpClient) { super ();}
-  
+
   public async obterFoto(): Promise<void> {
 
     try {
@@ -53,6 +55,16 @@ export class SidebarService extends BaseService{
         catchError(this.serviceError));
 
     return response;
+  }
+
+  public async obterMomentsFirebase(): Promise<any> {
+    return new Promise((resolve) => {
+      const starCountRef = this.refRealtime(this.database, "/bairroMoments");
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        resolve(data ? Object.values(data) : []);
+      });
+    });
   }
 
 }
