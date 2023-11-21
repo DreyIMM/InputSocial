@@ -23,6 +23,9 @@ export class SidebarComponent implements OnInit {
       this.ArmarzenarUsuario(this.sideBarService.LocalStorage.obterUsuario())
     }
 
+    this.sideBarService.refreshNeeded$.subscribe(() =>{
+      this.BairrosMoments();
+    })
     this.BairrosMoments();
   }
 

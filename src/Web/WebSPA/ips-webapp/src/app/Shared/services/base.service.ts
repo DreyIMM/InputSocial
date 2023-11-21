@@ -1,5 +1,5 @@
 import { HttpErrorResponse, HttpHeaders } from "@angular/common/http"
-import { throwError } from "rxjs"
+import { Subject, throwError } from "rxjs"
 import { LocalStorageUtils } from "src/app/Core/models/localstorage"
 import { environment } from "src/environments/environment";
 import { initializeApp } from "firebase/app";
@@ -14,7 +14,6 @@ export abstract class BaseService {
     protected UrServiceFeed: string = environment.apiUrlFeed
     protected UrServiceUsuario: string = environment.apiUrlUsuario
     protected UrServiceHere: string = environment.apiHereGeo
-    
     protected app = initializeApp(environment.firebase);
     protected analytics = getAnalytics(this.app);
 

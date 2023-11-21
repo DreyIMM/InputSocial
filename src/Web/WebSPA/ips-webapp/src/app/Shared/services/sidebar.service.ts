@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {  ref, listAll, getDownloadURL } from 'firebase/storage';
-import { Observable, catchError, map } from 'rxjs';
+import { Observable, Subject, catchError, map, tap } from 'rxjs';
 import { onValue } from "firebase/database";
 
 
@@ -11,7 +11,13 @@ import { onValue } from "firebase/database";
 })
 export class SidebarService extends BaseService{
 
+  private _refreshNeeded$ = new Subject<void>();
+
   constructor(private http: HttpClient) { super ();}
+
+  get refreshNeeded$(){
+    return this._refreshNeeded$;
+  }
 
   public async obterFoto(): Promise<void> {
 
@@ -63,6 +69,7 @@ export class SidebarService extends BaseService{
       onValue(starCountRef, (snapshot) => {
         const data = snapshot.val();
         resolve(data ? Object.values(data) : []);
+        this.refreshNeeded$.next();
       });
     });
   }
