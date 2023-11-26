@@ -1,6 +1,8 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { LocalStorageUtils } from 'src/app/Core/models/localstorage';
 import { SidebarService } from 'src/app/Shared/services/sidebar.service';
+import { getDatabase, ref } from "firebase/database";
+import { onValue } from "firebase/database";
 
 @Component({
   selector: 'app-sidebar',
@@ -12,21 +14,15 @@ export class SidebarComponent implements OnInit {
   localStorageUtils = new LocalStorageUtils();
   nome: string ="";
   bairroMoments:string[] = [];
-  constructor (private sideBarService : SidebarService,  private cdr: ChangeDetectorRef){}
+  public refRealtime = ref;
+  public database = getDatabase();
+
+  constructor (private sideBarService : SidebarService, private cdr: ChangeDetectorRef){}
 
 
   ngOnInit(): void {
-
     this.sideBarService.obterFoto();
-    
-    if (typeof this.nome === 'string' && this.nome.length === 0) {
-      this.ArmarzenarUsuario(this.sideBarService.LocalStorage.obterUsuario())
-    }
-
-    this.sideBarService.refreshNeeded$.subscribe(() =>{
-      this.BairrosMoments();
-    })
-    this.BairrosMoments();
+    this.convertValues();
   }
 
   ArmarzenarUsuario(result: any) {
@@ -42,14 +38,23 @@ export class SidebarComponent implements OnInit {
       );
   }
 
-  private async BairrosMoments() {
-    const data = await this.sideBarService.obterMomentsFirebase();
+  private async BairrosMoments(data: any) {
+    debugger
+    data = Object.values(data);
     if (Array.isArray(data)) {
       this.bairroMoments = data.map(item => item.Nome);
-      this.cdr.detectChanges(); 
-      console.log(this.bairroMoments)
     }else {
       console.error('Os dados não são um array.');
-    }}
+    }
+  }
+
+  public async convertValues(){
+      const starCountRef = this.refRealtime(this.database, "/bairroMoments");
+      onValue(starCountRef, (snapshot) => {
+        const data = snapshot.val();
+        this.BairrosMoments(data)
+      });
+    ;
+  }
 
 }

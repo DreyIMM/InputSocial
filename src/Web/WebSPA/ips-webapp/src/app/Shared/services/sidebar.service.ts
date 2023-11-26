@@ -11,13 +11,7 @@ import { onValue } from "firebase/database";
 })
 export class SidebarService extends BaseService{
 
-  private _refreshNeeded$ = new Subject<void>();
-
   constructor(private http: HttpClient) { super ();}
-
-  get refreshNeeded$(){
-    return this._refreshNeeded$;
-  }
 
   public async obterFoto(): Promise<void> {
 
@@ -61,17 +55,6 @@ export class SidebarService extends BaseService{
         catchError(this.serviceError));
 
     return response;
-  }
-
-  public async obterMomentsFirebase(): Promise<any> {
-    return new Promise((resolve) => {
-      const starCountRef = this.refRealtime(this.database, "/bairroMoments");
-      onValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        resolve(data ? Object.values(data) : []);
-        this.refreshNeeded$.next();
-      });
-    });
   }
 
 }
