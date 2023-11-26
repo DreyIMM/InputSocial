@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { Observable, catchError, map } from 'rxjs';
-import { Postagens } from 'src/app/Core/models/post.models';
+import { Observable, Subject, catchError, map, tap } from 'rxjs';
+import { PostagemDetalhe, Postagens } from 'src/app/Core/models/post.models';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
@@ -9,12 +9,23 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 })
 export class PostService extends BaseService {
 
-  constructor(private http: HttpClient) { super ();}
+  private _refreshNeede$ =new Subject<void>();
 
+  get refreshNeedes$(){
+    return this._refreshNeede$;
+  }
+
+  constructor(private http: HttpClient) { super ();}
   ListagemPostagens() : Observable<Postagens[]>{
       return this.http
       .get<Postagens[]>(this.UrServiceFeed+"feed",this.ObterAuthHeaderJson() )
       .pipe(catchError(this.serviceError));
+  }
+
+  PostagemDetalhe(id: string) : Observable<PostagemDetalhe>{
+    return this.http
+    .get<PostagemDetalhe>(this.UrServiceFeed+"feed/postagem/"+ id,this.ObterAuthHeaderJson() )
+    .pipe(catchError(this.serviceError));
   }
 
   buscarLocalização(lat: number, long : number) : Observable<any>{
@@ -35,6 +46,17 @@ export class PostService extends BaseService {
              .pipe(
                 map(this.extractData),
                 catchError(this.serviceError));
+  }
+
+  addComentario(mensagem: any, idPostagem: string) : Observable<any>{
+    return this.http
+    .post(this.UrServiceFeed+"feed/postagem/"+idPostagem+"/comentario", mensagem, this.ObterAuthHeaderJson())
+    .pipe(
+       map(this.extractData),
+       tap(() =>{
+        this._refreshNeede$.next();
+       }),
+       catchError(this.serviceError));
   }
 
 

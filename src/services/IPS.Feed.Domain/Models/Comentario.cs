@@ -12,6 +12,9 @@ namespace IPS.Feed.Domain.Models
         [Column(TypeName = "timestamp without time zone")]
         public DateTime Data { get; set; }
 
+        [NotMapped]
+        public string NomeUsuario { get; set; } = string.Empty;
+
         public Comentario(Guid idPostagem, string mensagem)
         {
             IdPostagem = idPostagem;

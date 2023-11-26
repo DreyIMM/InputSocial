@@ -42,3 +42,40 @@ export class Postagem {
     public latitude: number;
     public longitude: number;
 }
+
+export class PostagemDetalhe {
+
+    constructor(
+        id: string,
+        mensagem: string,
+        totalCurtidas: number,
+        comentarios: Comentarios[]
+    ) {
+        this.id = id;
+        this.mensagem = mensagem;
+        this.totalCurtidas = totalCurtidas
+        this.comentarios = comentarios
+    }
+
+    public id: string;
+    public mensagem: string;
+    public totalCurtidas: number;
+    public comentarios: Comentarios[];
+}
+
+export class Comentarios {
+    constructor(){}
+
+    public mensagem:string;
+    public nomeUsuarioComentario:string;
+}
+
+export class Comentario{
+    constructor(
+        mensagem: any,
+    ){
+        this.mensagem = mensagem;
+    }
+
+    public mensagem:string;
+}

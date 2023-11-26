@@ -25,7 +25,7 @@ namespace IPS.Feed.API.DTO
         public bool Modificado { get; set; }
         public string Mensagem { get; set; }
         public int TotalCurtidas { get; set; }
-        public IEnumerable<ComentarioAddDTO> Comentarios { get; set; } = new List<ComentarioAddDTO>();
+        public IEnumerable<ComentarioViewDTO> Comentarios { get; set; } = new List<ComentarioViewDTO>();
     }
 
     public record PostagemAddDTO

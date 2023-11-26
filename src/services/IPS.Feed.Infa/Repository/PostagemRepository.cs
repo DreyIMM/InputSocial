@@ -31,7 +31,22 @@ namespace IPS.Feed.Infra.Repository
 
         public async Task<Postagem> ObterDetalhePostagem(Guid Idpostagem)
         {
-            return await Db.Postagem.AsNoTracking().Include(p => p.Curtidas).Include(p => p.Comentarios).FirstOrDefaultAsync(p => p.Id == Idpostagem);
+
+            var result = await Db.Postagem.AsNoTracking().Include(p => p.Curtidas).Include(p => p.Comentarios).FirstOrDefaultAsync(p => p.Id == Idpostagem);
+            
+            Guid idUsuario = Guid.Parse(result.IdUsuario.ToString());
+            result.NomeUsuario = await _usuarioService.ObterNomeUsuario(idUsuario);
+
+            if (result.Comentarios.Any()) 
+            {                
+                foreach (var item in result.Comentarios)
+                 {
+                   var nome = await _usuarioService.ObterNomeUsuario(item.IdUsuario);
+                   item.NomeUsuario = nome;
+                 }
+            }
+
+            return result;
         }
 
         public async Task<bool> PostagemUsuario(Guid IdUser, Guid Idpostagem)

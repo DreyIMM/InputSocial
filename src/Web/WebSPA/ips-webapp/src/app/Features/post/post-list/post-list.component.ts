@@ -20,7 +20,6 @@ export class PostListComponent implements OnInit{
     this.postService.ListagemPostagens().subscribe({
       next: (v) => {
         this.postagens = v;
-        console.log(this.postagens); 
       },
       error: (e) => {
         console.log(e);

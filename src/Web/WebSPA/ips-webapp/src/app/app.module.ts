@@ -24,7 +24,11 @@ import {MatMenuModule} from '@angular/material/menu';
 import { PostListComponent } from './Features/post/post-list/post-list.component';
 import { PostAddComponent } from './Features/post/post-add/post-add.component';
 import {MatTabsModule} from '@angular/material/tabs';
-
+import { PostDetailsComponent } from './Features/post/post-details/post-details.component';
+import { PostResolve } from './Shared/services/post.resolve';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -38,6 +42,7 @@ import {MatTabsModule} from '@angular/material/tabs';
     NotFoundComponent,
     PostListComponent,
     PostAddComponent,
+    PostDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,9 +57,13 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatListModule,
     MatMenuModule,
     MatIconModule,
-    MatTabsModule
+    MatTabsModule,
+    MatBadgeModule,
+    MatInputModule,
+    MatFormFieldModule
   ],
   providers: [
+    PostResolve,
     LoginService
   ],
   bootstrap: [AppComponent]

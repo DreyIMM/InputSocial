@@ -104,7 +104,7 @@ namespace IPS.Feed.API.Controllers
         [HttpPost("postagem/{idPostagem}/comentario")]
         [ProducesResponseType(typeof(ComentarioAddDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PostagemAddDTO>> ComentarioAdd(Guid idPostagem, [FromBody] ComentarioAddDTO dto)
+        public async Task<ActionResult<ComentarioAddDTO>> ComentarioAdd(Guid idPostagem, [FromBody] ComentarioAddDTO dto)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
