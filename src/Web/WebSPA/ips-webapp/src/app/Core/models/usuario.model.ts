@@ -4,10 +4,10 @@ export class Usuario {
     ){}
 
     
-    public UserName: string;
-    public Celular :string;
-    public Nascimento :string;
-    public Email: string;
+    public userName: string;
+    public celular :string;
+    public nascimento :string;
+    public email: string;
     public senha: string;
     public senhaConfirmacao: string;
 

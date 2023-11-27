@@ -14,13 +14,18 @@ export class LoginComponent implements OnInit{
   errors : any[] = [];
   signupObj: Usuario = new Usuario()
   login : UsuarioLogin =  new UsuarioLogin();
+  fotoPerfil: File;
+
+  onFileSelected(event: any) {
+    this.fotoPerfil = event.target.files[0] as File;
+  }
 
   ngOnInit(): void {
    
   } 
 
   onSignUp(){
-    this.loginService.registrarUsuario(this.signupObj)
+    this.loginService.registrarUsuario(this.signupObj, this.fotoPerfil)
     .subscribe({
       next: (v) => this.processarSucesso(v),
       error: (e) => this.processarFalha(e),

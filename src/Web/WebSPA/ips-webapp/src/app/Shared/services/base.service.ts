@@ -22,6 +22,14 @@ export abstract class BaseService {
     public database = getDatabase();
     public refRealtime = ref;
     
+    protected ObterHeaderJsonImagem(){
+        return {
+            headers: new HttpHeaders({
+                'Accept': 'application/json',
+            })
+        }
+    }
+
     protected ObterHeaderJson(){
         return {
             headers: new HttpHeaders({

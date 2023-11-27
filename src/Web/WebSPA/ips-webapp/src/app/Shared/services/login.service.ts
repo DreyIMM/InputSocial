@@ -13,9 +13,14 @@ export class LoginService  extends BaseService {
 
 
 
-  registrarUsuario(usuarioRegistro: Usuario) : Observable<Usuario>{
+  registrarUsuario(usuarioRegistro: Usuario, fotoPerfil: File) : Observable<Usuario>{
+    debugger
+    let formData:FormData = new FormData();
+    formData.append("fotoPerfil",fotoPerfil);
+    formData.append("UsuarioRegistro",JSON.stringify(usuarioRegistro));
+
       let response = this.http
-      .post(this.UrServiceV1+ 'identidade/nova-conta', usuarioRegistro, this.ObterHeaderJson())
+      .post(this.UrServiceV1+ 'identidade/nova-conta', formData, this.ObterHeaderJsonImagem())
       .pipe(
         map(this.extractData),
         catchError(this.serviceError));

@@ -15,20 +15,20 @@
                 </div>
 				<form class="form" #registerForm="ngForm" [appMatchPassword]="['Senha', 'SenhaConfirmacao']" (ngSubmit)="registerForm.form.valid && onSignUp()" novalidate >
                     <div class="form-group">
-                        <input name="txt" [(ngModel)]="signupObj.UserName" class="form-control form-control-lg mt-3" id="UserName" type="text" placeholder="Usuario" required />
+                        <input name="txt" [(ngModel)]="signupObj.userName" class="form-control form-control-lg mt-3" id="UserName" type="text" placeholder="Usuario" required />
                     </div>     
 
                     <div class="form-group">
-                        <input name="txt" [(ngModel)]="signupObj.Celular" type="text" class="form-control form-control-lg mt-3"  placeholder="Celular"  />
+                        <input name="txt" [(ngModel)]="signupObj.celular" type="text" class="form-control form-control-lg mt-3"  placeholder="Celular"  />
                         
                     </div>
 
                     <div class="form-group">
-                        <input name="txt" [(ngModel)]="signupObj.Nascimento" type="text" class="form-control form-control-lg mt-3" placeholder="Data de Nascimento" />
+                        <input name="txt" [(ngModel)]="signupObj.nascimento" type="text" class="form-control form-control-lg mt-3" placeholder="Data de Nascimento" />
                         
                     </div>
                     <div class="form-group">
-                        <input name="email" [(ngModel)]="signupObj.Email" type="email" class="form-control form-control-lg mt-3" placeholder="Email" />
+                        <input name="email" [(ngModel)]="signupObj.email" type="email" class="form-control form-control-lg mt-3" placeholder="Email" />
                         
                     </div>
 
@@ -42,6 +42,7 @@
                     <div class="form-group">
                         <input name="senhaConfirmacao" [(ngModel)]="signupObj.senhaConfirmacao" type="password" class="form-control form-control-lg mt-3" #senhaConfirmacao="ngModel" placeholder="Confirme a Senha" required />    
                     </div>
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
                     <span class="text-danger" *ngIf="senhaConfirmacao.touched && senhaConfirmacao.errors?.passwordMismatch.any">
                         As senhas não coincidem
                     </span>
