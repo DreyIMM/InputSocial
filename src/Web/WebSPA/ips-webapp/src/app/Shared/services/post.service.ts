@@ -3,6 +3,7 @@ import { BaseService } from './base.service';
 import { Observable, Subject, catchError, map, tap } from 'rxjs';
 import { PostagemDetalhe, Postagens } from 'src/app/Core/models/post.models';
 import { HttpClient, HttpParams } from '@angular/common/http';
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class PostService extends BaseService {
   }
 
   constructor(private http: HttpClient) { super ();}
+
   ListagemPostagens() : Observable<Postagens[]>{
       return this.http
       .get<Postagens[]>(this.UrServiceFeed+"feed",this.ObterAuthHeaderJson() )
@@ -57,6 +59,38 @@ export class PostService extends BaseService {
         this._refreshNeede$.next();
        }),
        catchError(this.serviceError));
+  }
+
+  public async obterFoto(post : Postagens): Promise<void> {
+
+    try {
+      const listRef = ref(this.storage, '/ipsfotos');
+      const items = await listAll(listRef);
+  
+      for (const itemRef of items.items) {
+        if (itemRef.fullPath.includes(post.idUsuario)) {
+          const url = await this.obterUrl(itemRef.fullPath);
+          if (url) {
+            post.imageProfile  = url;
+            //document.getElementById(guidUser)?.setAttribute('src', url);
+          }
+          break; 
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao obter foto:', error);
+    }
+    
+  }
+
+  protected async obterUrl(urlPhoto: string): Promise<string> {
+    try {
+      const url = await getDownloadURL(ref(this.storage, urlPhoto));
+      return url;
+    } catch (error) {
+      console.error('Erro ao obter URL da imagem:', error);
+      return '';
+    }
   }
 
 

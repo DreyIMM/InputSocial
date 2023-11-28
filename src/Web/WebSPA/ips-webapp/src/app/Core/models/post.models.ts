@@ -16,6 +16,7 @@ export class Postagens{
     public totalCurtidas: number;
     public bairro : string;
     public regiao : string;
+    public imageProfile : string;
 }
 
 

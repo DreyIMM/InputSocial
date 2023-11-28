@@ -20,6 +20,9 @@ export class PostListComponent implements OnInit{
     this.postService.ListagemPostagens().subscribe({
       next: (v) => {
         this.postagens = v;
+        this.postagens.forEach(p => {
+          this.postService.obterFoto(p);
+        }) 
       },
       error: (e) => {
         console.log(e);

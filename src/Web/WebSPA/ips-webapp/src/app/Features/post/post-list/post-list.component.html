@@ -2,8 +2,9 @@
 <div class="lista-posts" *ngFor="let postagem of postagens">  
   <mat-card class="example-card mt-4">
       <mat-card-header>
+        <div mat-card-avatar class="example-header-image" id={{postagem.idUsuario}}  [style.backgroundImage]="'url(' + postagem.imageProfile + ')'"></div>
         <span [hidden]="true"> {{postagem.id}}</span>
-        <mat-card-title class="pb-3">{{postagem.nomeUsuario}}</mat-card-title>
+        <mat-card-title class="pb-">{{postagem.nomeUsuario}}</mat-card-title>
         <mat-card-subtitle>{{postagem.bairro}} - {{postagem.regiao}}</mat-card-subtitle>
       </mat-card-header>
       <mat-card-content>

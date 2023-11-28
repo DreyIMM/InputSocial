@@ -23,6 +23,7 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.sideBarService.obterFoto();
     this.convertValues();
+    this.ArmarzenarUsuario(this.sideBarService.LocalStorage.obterUsuario())
   }
 
   ArmarzenarUsuario(result: any) {
@@ -39,7 +40,6 @@ export class SidebarComponent implements OnInit {
   }
 
   private async BairrosMoments(data: any) {
-    debugger
     data = Object.values(data);
     if (Array.isArray(data)) {
       this.bairroMoments = data.map(item => item.Nome);
