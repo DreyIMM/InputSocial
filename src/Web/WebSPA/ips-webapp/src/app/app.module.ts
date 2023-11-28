@@ -29,6 +29,7 @@ import { PostResolve } from './Shared/services/post.resolve';
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 @NgModule({
   declarations: [
     LoginComponent,
@@ -60,11 +61,14 @@ import { MatInputModule } from '@angular/material/input';
     MatTabsModule,
     MatBadgeModule,
     MatInputModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
     PostResolve,
-    LoginService
+    LoginService,
+    provideNgxMask()
   ],
   bootstrap: [AppComponent]
 })

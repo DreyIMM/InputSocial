@@ -5,8 +5,8 @@ export class Usuario {
 
     
     public userName: string;
-    public celular :string;
-    public nascimento :string;
+    public celular :string= '';
+    public nascimento :string = '';
     public email: string;
     public senha: string;
     public senhaConfirmacao: string;
