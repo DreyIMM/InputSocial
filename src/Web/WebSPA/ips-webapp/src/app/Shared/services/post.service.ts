@@ -46,6 +46,9 @@ export class PostService extends BaseService {
       return this.http
              .post(this.UrServiceFeed+"feed/postagem", post, this.ObterAuthHeaderJson())
              .pipe(
+                tap(() => {
+                  this.refreshNeedes$.next();
+                }),
                 map(this.extractData),
                 catchError(this.serviceError));
   }

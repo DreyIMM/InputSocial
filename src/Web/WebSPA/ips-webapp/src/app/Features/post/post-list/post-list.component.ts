@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Postagens } from 'src/app/Core/models/post.models';
 import { PostService } from 'src/app/Shared/services/post.service';
 @Component({
@@ -13,8 +13,13 @@ export class PostListComponent implements OnInit{
   public postagens: Postagens[] = [new Postagens()];
 
   ngOnInit(): void {
-    this.ObterPostagens();
+      this.postService.refreshNeedes$.subscribe(()=>{
+        this.ObterPostagens();
+      });
+      this.ObterPostagens();
   }
+
+
 
   public ObterPostagens(): void {
     this.postService.ListagemPostagens().subscribe({
