@@ -1,0 +1,75 @@
+<div class="container-fluid contentform">
+	<div class="main">
+        
+        <div class="alert alert-danger" *ngIf="errors.length > 0">
+            <h3 id="msgRetorno">Alguma coisa não deu certo</h3>
+            <ul>
+                <li *ngFor="let error of errors">{{error}}</li>
+            </ul>
+        </div>
+
+		<input type="checkbox" id="chk" aria-hidden="true">
+            <div class="signup pt-5">
+                <div class="logo text-center">
+                    <img class="m-5 logo" src="./assets/ipslogo.png" alt="" />
+                </div>
+				<form class="form" #registerForm="ngForm" [appMatchPassword]="['Senha', 'SenhaConfirmacao']" (ngSubmit)="registerForm.form.valid && onSignUp()" novalidate >
+                    <div class="form-group">
+                        <input name="txt" [(ngModel)]="signupObj.userName" class="form-control form-control-lg mt-3" id="UserName" type="text" placeholder="Usuario" maxlength="25" required />
+                    </div>     
+
+                    <div class="form-group">
+                        <input name="celular" [(ngModel)]="signupObj.celular" type="text" class="form-control form-control-lg mt-3"  placeholder="Celular"  [dropSpecialCharacters]="false" placeholder="(xx) 0000-0000"  mask="(00) 0000-0000" />
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <input name="nascimento" [(ngModel)]="signupObj.nascimento" type="text" class="form-control form-control-lg mt-3" [dropSpecialCharacters]="false" mask="d0/M0/0000" placeholder="Data de Nascimento" />
+                            
+                    </div>
+                    <div class="form-group">
+                        <input name="email" [(ngModel)]="signupObj.email" type="email" class="form-control form-control-lg mt-3" placeholder="Email" />
+                        
+                    </div>
+
+                    <div class="form-group">
+                        <input name="senha" [(ngModel)]="signupObj.senha" type="password" class="form-control form-control-lg mt-3" #senha="ngModel" placeholder="Senha" required/>
+                    </div>
+                    <span class="text-danger text-center" *ngIf="(senha.touched || registerForm.submitted) && senha.errors?.required">
+                            Senha é obrigatoria
+                    </span>
+
+                    <div class="form-group">
+                        <input name="senhaConfirmacao" [(ngModel)]="signupObj.senhaConfirmacao" type="password" class="form-control form-control-lg mt-3" #senhaConfirmacao="ngModel" placeholder="Confirme a Senha" required />    
+                    </div>
+                    <input type="file" (change)="onFileSelected($event)" accept="image/*" />
+                    <span class="text-danger" *ngIf="senhaConfirmacao.touched && senhaConfirmacao.errors?.passwordMismatch.any">
+                        As senhas não coincidem
+                    </span>
+                    <span class="text-danger " *ngIf="(senhaConfirmacao.touched || registerForm.submitted) && senhaConfirmacao.errors?.required">
+                        A senha de confirmação é obrigatoria
+                    </span>
+
+                    <div class="d-grid gap-2 form-group">
+                        <button type="submit" class="btnLogin btn btn-primary btn-lg mt-3" >Registrar</button>
+                    </div>
+				</form>
+			</div>
+			<div class="login">
+				<form>
+					<label for="chk" aria-hidden="true">Login</label>
+                    <div class="form-group">
+                        <input [(ngModel)]="login.Email" name="email" type="email" class="form-control form-control-lg mt-3"  placeholder="Email"  />
+                        
+                    </div>
+					<div class="form-group">
+                        <input [(ngModel)]="login.Senha"  name="psw" type="password" class="form-control form-control-lg mt-3" placeholder="Senha"  />
+                       
+                    </div>
+                    <div class="d-grid gap-2 form-group">
+                        <button (click)="onLogin()" id="Login" type="submit" value="Login" class="btnLogin btn btn-primary btn-lg mt-3" >Login  </button>
+                    </div>
+				</form>
+			</div>
+	 </div>
+</div>

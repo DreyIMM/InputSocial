@@ -1,5 +1,4 @@
 ﻿using IPS.Core.DomainObjects;
-using IPS.Feed.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

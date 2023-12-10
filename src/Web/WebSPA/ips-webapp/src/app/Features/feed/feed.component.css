@@ -1,0 +1,62 @@
+.example-header-image {
+    background-size: cover;
+  }
+
+.mat-mdc-card {
+    box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.40);
+    --mdc-elevated-card-container-color: #fff;
+}
+.example-card {
+    max-width: 730;
+  }
+
+
+/* estilo do post-list */
+
+.config{
+    position: absolute;
+    left: 93%;
+}
+
+.details{
+    border: none;
+    background: none;
+}
+
+.comment-input{
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.mat-mdc-form-field{
+    width: 95%;
+    margin: 2px;
+}
+.card-footer{
+    background-color: #e3e2e2;
+    padding: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+a{
+    text-decoration: none;
+}
+
+.comment {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    padding-top: 41px;
+}  
+  
+  .comment-header {
+    font-weight: bold; 
+  }
+  
+  .comment-input {
+    margin-bottom: 10px; 
+  }
+  

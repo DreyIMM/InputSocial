@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using IPS.Core.DomainObjects;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IPS.Usuario.API.Models
 {
@@ -9,13 +10,20 @@ namespace IPS.Usuario.API.Models
         public string Celular { get; set; }
         public DateTime DataAniversario { get; set; }
 
+        [NotMapped]
+        public Stream FotoPerfil { get; set; }
 
-        public UsuarioLogado(Guid id, string userName, string celular, DateTime dtAniversario)
+        [NotMapped]
+        public string ExtFile { get; set; }
+
+        public UsuarioLogado(Guid id, string userName, string celular, DateTime dtAniversario, Stream fotoPerfil, string extFile = ".jpg")
         {
             Id = id;
             UserName = userName;
             Celular = celular;
             DataAniversario = dtAniversario;
+            FotoPerfil = fotoPerfil;
+            ExtFile = extFile;
         }
 
         public bool AtualizarCelular(string celular)

@@ -1,0 +1,12 @@
+    <div class="infousuario">
+        <img src="" class="rounded" id="profileLogao" alt="Usario XPTO">
+        <mat-card-title>Bem vindo</mat-card-title>
+        <mat-card-subtitle>{{nome}}</mat-card-subtitle>
+        <hr>
+    </div>
+
+    <li *ngFor="let bairro of bairroMoments; index as i; first as isFirst">
+        <span *ngIf="isFirst">Em alta região do </span> {{bairro}}
+    </li>
+
+  

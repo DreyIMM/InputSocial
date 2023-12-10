@@ -1,8 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using IPS.Identidade.API.Extensions;
+using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace IPS.Identidade.API.Models
 {
-    public class UsuarioRegistro
+    // Binder personalizado para envio de IFormFile e ViewModel dentro de um FormData compatível com .NET Core 3.1 ou superior (system.text.json)
+    [ModelBinder(BinderType = typeof(UsuarioLoginModelBinder))]
+    public class UsuarioRegistro 
     {
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string UserName { get; set; }
@@ -17,6 +23,9 @@ namespace IPS.Identidade.API.Models
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [EmailAddress(ErrorMessage = "O campo {0} está em formato inválido")]
         public string Email { get; set; }
+
+        [JsonIgnore]
+        public IFormFile? fotoPerfil { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         [StringLength(100, ErrorMessage = "O campo {0} precisa ter entre {2} e {1} caracteres", MinimumLength = 6)]

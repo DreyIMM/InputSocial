@@ -1,0 +1,26 @@
+
+<div class="lista-posts" *ngFor="let postagem of postagens">  
+  <mat-card class="example-card mt-4">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image" id={{postagem.idUsuario}}  [style.backgroundImage]="'url(' + postagem.imageProfile + ')'"></div>
+        <span [hidden]="true"> {{postagem.id}}</span>
+        <mat-card-title class="pb-">{{postagem.nomeUsuario}}</mat-card-title>
+        <mat-card-subtitle>{{postagem.bairro}} - {{postagem.regiao}}</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <p>
+          {{postagem.mensagem}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+      </mat-card-actions>
+      <div class="card-footer">
+        <a class="card-link"><i class="fa fa-gittip"></i> <span matBadge={{postagem.totalCurtidas}}>Curtidas</span></a>
+        <a class="details" [routerLink]="['/detalhes', postagem.id]"> <i class="fa fa-comment"></i> Comentario</a>
+        <a class="card-link"><i class="fa fa-mail-forward"></i> Compartilhar</a>
+      </div>
+      <button class="config" mat-icon-button aria-label="Example icon button with a vertical three dot icon">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+  </mat-card>
+</div>

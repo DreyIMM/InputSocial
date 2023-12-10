@@ -1,8 +1,10 @@
-﻿using IPS.Feed.API.DTO;
+﻿using IPS.Core.Messages;
+using IPS.Feed.API.DTO;
 using IPS.Feed.API.Extensions;
 using IPS.Feed.Domain.Interfaces;
 using IPS.Feed.Domain.Models;
 using IPS.Feed.Domain.Services;
+using IPS.MessageBus;
 using IPS.WebApi.Core.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -19,13 +21,16 @@ namespace IPS.Feed.API.Controllers
         private readonly IComentarioService _comentarioService;
         private readonly IComentarioRepository _comentarioRepository;
         private readonly ICurtidaService _curtidaService;
-        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService)
+        private readonly IMessageBus _bus;
+
+        public FeedController(IPostagemRepository postagemRepository, IPostagemService postagemService, IComentarioService comentarioService, IComentarioRepository comentarioRepository, ICurtidaService curtidaService, IMessageBus bus)
         {
             _postagemRepository = postagemRepository;
             _postagemService = postagemService;
             _comentarioService = comentarioService;
             _comentarioRepository = comentarioRepository;
             _curtidaService = curtidaService;
+            _bus = bus;
         }
 
         [HttpPost("postagem")]
@@ -34,9 +39,13 @@ namespace IPS.Feed.API.Controllers
         public async Task<ActionResult<PostagemAddDTO>> PostagemAdd([FromBody] PostagemAddDTO postDTO)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
-            Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem);
+            Postagem post = new Postagem(postDTO.Modificado, postDTO.Mensagem, postDTO.Latitude, postDTO.Longitude, postDTO.Bairro, postDTO.Regiao); //refazer isso para
             await _postagemService.Adicionar(post);
+            
+            var processarMensagem = new ProcessarPostMensagemIntegrationEvent(post.Id, post.Mensagem);
 
+            await  _bus.PublishAsync(processarMensagem);
+            
             return Ok(postDTO);
         }
 
@@ -44,7 +53,7 @@ namespace IPS.Feed.API.Controllers
         [ProducesResponseType(typeof(PostagensDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IEnumerable<PostagensDTO>> ObterPostagens()
-        {
+        {   
             var result = await _postagemRepository.ObterTodasPostagem();
 
             return result.ToPostListDTO(); 
@@ -95,7 +104,7 @@ namespace IPS.Feed.API.Controllers
         [HttpPost("postagem/{idPostagem}/comentario")]
         [ProducesResponseType(typeof(ComentarioAddDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<PostagemAddDTO>> ComentarioAdd(Guid idPostagem, [FromBody] ComentarioAddDTO dto)
+        public async Task<ActionResult<ComentarioAddDTO>> ComentarioAdd(Guid idPostagem, [FromBody] ComentarioAddDTO dto)
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
@@ -120,8 +129,6 @@ namespace IPS.Feed.API.Controllers
 
             return Ok(result);
         }
-
-
 
     }    
 }

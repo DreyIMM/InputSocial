@@ -2,8 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 using System.Text.Json;
-using IPS.Feed.Infra.Data;
-using Npgsql;
+using IPS.Feed.Infra;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Internal;
 
 namespace IPS.Feed.API.Configuration
 {
@@ -14,9 +14,7 @@ namespace IPS.Feed.API.Configuration
         {
             AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
-            services.AddDbContext<FeedContext>(options =>
-              options.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
-
+            services.Configure<AppSettings>(configuration);
 
             services.AddControllers()
              .AddJsonOptions(options =>
@@ -24,6 +22,15 @@ namespace IPS.Feed.API.Configuration
                  options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
                  options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
              });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Development",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    );
+            });
 
             return services;
         }
@@ -39,6 +46,8 @@ namespace IPS.Feed.API.Configuration
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("Development");
 
             app.UseAuthConfiguration();
 

@@ -1,0 +1,39 @@
+<header class="p-3 mb-3 border-bottom" id="flipkart-navbar">
+  <div class="container">
+    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+     
+      <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+        <img class=" logo" src="./assets/logonavbar.png" alt="" />
+      </ul>
+
+      <form class="col-12 col-lg-auto mb-2 mb-lg-0 me-lg-3">
+        <input type="search" class="col-sm-2 form-control col-form-label" placeholder="Buscar..." aria-label="Search">
+      </form>
+
+      
+      <button mat-mini-fab [matMenuTriggerFor]="menu" color="primary" aria-label="Configuração">
+        <mat-icon>perm_identity</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Perfil</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>chat</mat-icon>
+          <span>Converas</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Desativa alerta</span>
+        </button>
+        <button mat-menu-item (click)="logout()" >
+          <mat-icon>power_settings_new</mat-icon>
+          <span >Sair</span>
+        </button>
+      </mat-menu>
+
+
+    </div>
+  </div>
+</header>

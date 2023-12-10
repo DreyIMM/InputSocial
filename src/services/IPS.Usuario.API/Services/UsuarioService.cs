@@ -28,9 +28,10 @@ namespace IPS.Usuario.API.Services
 
         private async Task<ResponseMessage> RegistrarUsuario(UsuarioRegistradoIntegrationEvent user)
         {
-            var usuario = new UsuarioLogado(user.Id, user.UserName, user.Celular, user.DataAniversario);
-            ValidationResult sucesso;
+            var stream = new MemoryStream(user.FotoPerfil);
+            var usuario = new UsuarioLogado(user.Id, user.UserName, user.Celular, user.DataAniversario, stream, user.ExtensionFile);
 
+            ValidationResult sucesso;
             using (var scoped = _serviceProvider.CreateScope())
             {
                 var service = scoped.ServiceProvider.GetRequiredService<IUsuarioRepository>();
