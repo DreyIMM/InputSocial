@@ -12,11 +12,6 @@ namespace IPS.Feed.API.Controllers
     public class EventoController : MainController
     {
 
-        
-
-
-
-
 
 
     }
