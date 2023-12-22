@@ -19,5 +19,15 @@ namespace IPS.Feed.Domain.Models
         public double Longitude { get; set; }
         public Guid? EventoGuid { get; set; }
         public Evento Evento { get; set; }
+
+        public Endereco(string bairro, string regiao, string numero, string cep, double latitude, double longitude)
+        {
+            Bairro = bairro;
+            Regiao = regiao;
+            Numero = numero;
+            this.cep = cep;
+            Latitude = latitude;
+            Longitude = longitude;
+        }
     }
 }
