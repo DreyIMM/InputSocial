@@ -19,8 +19,17 @@ namespace IPS.Feed.Infa.Mappings
 
             builder.Property(e => e.StatusEvento).HasConversion<string>();
 
-            builder.OwnsOne(e => e.Endereco);
-            
+            builder.OwnsOne(e => e.Endereco, e =>
+            {
+                e.Property(end => end.Bairro);
+                e.Property(end => end.Cidade);
+                e.Property(end => end.Numero);
+                e.Property(end => end.Cep);
+                e.Property(end => end.Latitude);
+                e.Property(end => end.Longitude);
+            });
+
+
             builder.ToTable("Eventos");
         }
 

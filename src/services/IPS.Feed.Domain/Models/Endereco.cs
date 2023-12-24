@@ -8,24 +8,22 @@ using System.Threading.Tasks;
 
 namespace IPS.Feed.Domain.Models
 {
-    public class Endereco : Entity
+    public class Endereco
     {
 
         public string Bairro { get; set; } = string.Empty;
-        public string Regiao { get; set; } = string.Empty;
+        public string Cidade { get; set; } = string.Empty;
         public string Numero { get; set; } = string.Empty;
-        public string cep { get; set; } = string.Empty;
+        public string Cep { get; set; } = string.Empty;
         public double Latitude { get; set; } 
         public double Longitude { get; set; }
-        public Guid? EventoGuid { get; set; }
-        public Evento Evento { get; set; }
 
-        public Endereco(string bairro, string regiao, string numero, string cep, double latitude, double longitude)
+        public Endereco(string bairro, string cidade, string numero, string cep, double latitude, double longitude)
         {
             Bairro = bairro;
-            Regiao = regiao;
+            Cidade = cidade;
             Numero = numero;
-            this.cep = cep;
+            Cep = cep;
             Latitude = latitude;
             Longitude = longitude;
         }

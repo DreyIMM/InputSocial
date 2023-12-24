@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace IPS.Feed.Infa.Migrations
 {
     [DbContext(typeof(FeedContext))]
-    [Migration("20231114022023_InclueEntidadeNLP")]
-    partial class InclueEntidadeNLP
+    [Migration("20231222015923_NewVersion")]
+    partial class NewVersion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,38 @@ namespace IPS.Feed.Infa.Migrations
                     b.ToTable("Curtidas", (string)null);
                 });
 
+            modelBuilder.Entity("IPS.Feed.Domain.Models.Evento", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("DescricaoEvento")
+                        .IsRequired()
+                        .HasColumnType("varchar(300)");
+
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("Limite")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("QuantidadePessoas")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("StatusEvento")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TituloEvento")
+                        .IsRequired()
+                        .HasColumnType("varchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Eventos", (string)null);
+                });
+
             modelBuilder.Entity("IPS.Feed.Domain.Models.Postagem", b =>
                 {
                     b.Property<Guid>("Id")
@@ -87,7 +119,6 @@ namespace IPS.Feed.Infa.Migrations
                         .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("EntidadesNlp")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<Guid>("IdUsuario")
@@ -156,6 +187,46 @@ namespace IPS.Feed.Infa.Migrations
                         .IsRequired();
 
                     b.Navigation("Postagem");
+                });
+
+            modelBuilder.Entity("IPS.Feed.Domain.Models.Evento", b =>
+                {
+                    b.OwnsOne("IPS.Feed.Domain.Models.Endereco", "Endereco", b1 =>
+                        {
+                            b1.Property<Guid>("EventoId")
+                                .HasColumnType("uuid");
+
+                            b1.Property<string>("Bairro")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Cep")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<string>("Cidade")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.Property<double>("Latitude")
+                                .HasColumnType("double precision");
+
+                            b1.Property<double>("Longitude")
+                                .HasColumnType("double precision");
+
+                            b1.Property<string>("Numero")
+                                .IsRequired()
+                                .HasColumnType("text");
+
+                            b1.HasKey("EventoId");
+
+                            b1.ToTable("Eventos");
+
+                            b1.WithOwner()
+                                .HasForeignKey("EventoId");
+                        });
+
+                    b.Navigation("Endereco");
                 });
 
             modelBuilder.Entity("IPS.Feed.Domain.Models.Postagem", b =>

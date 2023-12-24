@@ -5,10 +5,33 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace IPS.Feed.Infa.Migrations
 {
-    public partial class InclueRegionAndFix : Migration
+    public partial class NewVersion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "Eventos",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "uuid", nullable: false),
+                    TituloEvento = table.Column<string>(type: "varchar(150)", nullable: false),
+                    DescricaoEvento = table.Column<string>(type: "varchar(300)", nullable: false),
+                    Limite = table.Column<bool>(type: "boolean", nullable: false),
+                    QuantidadePessoas = table.Column<int>(type: "integer", nullable: true),
+                    StatusEvento = table.Column<string>(type: "text", nullable: false),
+                    Endereco_Bairro = table.Column<string>(type: "text", nullable: true),
+                    Endereco_Cidade = table.Column<string>(type: "text", nullable: true),
+                    Endereco_Numero = table.Column<string>(type: "text", nullable: true),
+                    Endereco_Cep = table.Column<string>(type: "text", nullable: true),
+                    Endereco_Latitude = table.Column<double>(type: "double precision", nullable: true),
+                    Endereco_Longitude = table.Column<double>(type: "double precision", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Eventos", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "Postagens",
                 columns: table => new
@@ -21,7 +44,8 @@ namespace IPS.Feed.Infa.Migrations
                     Latitude = table.Column<double>(type: "double precision", nullable: false),
                     Longitude = table.Column<double>(type: "double precision", nullable: false),
                     Bairro = table.Column<string>(type: "text", nullable: false),
-                    Regiao = table.Column<string>(type: "text", nullable: false)
+                    Regiao = table.Column<string>(type: "text", nullable: false),
+                    EntidadesNlp = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -106,6 +130,9 @@ namespace IPS.Feed.Infa.Migrations
 
             migrationBuilder.DropTable(
                 name: "Curtidas");
+
+            migrationBuilder.DropTable(
+                name: "Eventos");
 
             migrationBuilder.DropTable(
                 name: "Seguidores");

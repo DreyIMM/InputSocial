@@ -198,11 +198,13 @@ namespace IPS.Feed.Infa.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<Guid?>("EventoGuid")
-                                .HasColumnType("uuid");
+                            b1.Property<string>("Cep")
+                                .IsRequired()
+                                .HasColumnType("text");
 
-                            b1.Property<Guid>("Id")
-                                .HasColumnType("uuid");
+                            b1.Property<string>("Cidade")
+                                .IsRequired()
+                                .HasColumnType("text");
 
                             b1.Property<double>("Latitude")
                                 .HasColumnType("double precision");
@@ -214,22 +216,12 @@ namespace IPS.Feed.Infa.Migrations
                                 .IsRequired()
                                 .HasColumnType("text");
 
-                            b1.Property<string>("Regiao")
-                                .IsRequired()
-                                .HasColumnType("text");
-
-                            b1.Property<string>("cep")
-                                .IsRequired()
-                                .HasColumnType("text");
-
                             b1.HasKey("EventoId");
 
                             b1.ToTable("Eventos");
 
-                            b1.WithOwner("Evento")
+                            b1.WithOwner()
                                 .HasForeignKey("EventoId");
-
-                            b1.Navigation("Evento");
                         });
 
                     b.Navigation("Endereco");
